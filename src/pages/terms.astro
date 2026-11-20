@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Terms | Hitch Studio" description="The terms for Hitch Studio websites, care plans and custom tools, for clients in Australia, the UK and the US." booking={false}>
+  <section class="section" style="padding-top:clamp(48px,7vw,96px)" aria-labelledby="terms-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Legal</p>
+          <h1 id="terms-h" class="display-l">Terms.</h1>
+          <p class="mono muted">Draft for legal review · November 2026</p>
+        </div>
+        <div class="prose body-l" style="font-size:1.0625rem">
+          <p>These terms cover websites, care plans, custom tools and add-ons sold by Rope Digital LLC, trading as Hitch Studio (“Hitch Studio”, “we”). They apply to clients in Australia, the United Kingdom and the United States. Your quote and these terms form the agreement.</p>
+
+          <h2>1. What we sell</h2>
+          <p>We sell the fixed packages, care plans, custom tool tiers and add-ons listed on our pricing page. Work outside that menu is not covered. Larger work may be referred to Rope Digital under a separate agreement.</p>
+
+          <h2>2. Prices and payment</h2>
+          <ul>
+            <li>All prices are in US dollars and exclude any sales tax that applies in your market, which your quote will show.</li>
+            <li>You pay 50% when you sign and 50% at launch, through a Stripe link.</li>
+            <li>We start work once the deposit is paid.</li>
+          </ul>
+
+          <h2>3. Delivery</h2>
+          <p>Delivery times run in working days from the content call. If content is not supplied, we launch 10 working days after your deposit using copy from our sector kit, which you can change later through care.</p>
+
+          <h2>4. Revisions</h2>
+          <p>Your package includes a set number of revision rounds on one staging link. Further changes are made through your care plan or quoted as an add-on.</p>
+
+          <h2>5. Care plans</h2>
+          <ul>
+            <li>Care is required for the first 12 months after launch and is billed monthly.</li>
+            <li>After 12 months, care rolls monthly. Either side can end it with 30 days’ notice.</li>
+            <li>If you leave care, we give you a full export of your site.</li>
+          </ul>
+
+          <h2>6. Ownership</h2>
+          <p>Once you have paid in full, you own your site’s content, design and the code written for you. Our sector kits, shared components and tools remain ours, and you get a perpetual licence to use them on your site.</p>
+
+          <h2>7. Your responsibilities</h2>
+          <p>You confirm you have the right to use the content, logos and photos you give us, and that the claims on your site are true. For regulated sectors such as health, you remain responsible for compliance, though we check copy against the main rules for your market before launch.</p>
+
+          <h2>8. Liability</h2>
+          <p>Our total liability under the agreement is limited to the fees you paid in the 12 months before the claim. Nothing in these terms limits rights you have under consumer law, including the Australian Consumer Law, the UK Consumer Rights Act 2015 where it applies, and US state consumer protection law.</p>
+
+          <h2>9. Governing law</h2>
+          <p>These terms are governed by the laws of the state in which Rope Digital LLC is registered, unless the law of your country requires otherwise.</p>
+
+          <h2>10. Contact</h2>
+          <p>Questions about these terms: <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

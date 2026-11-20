@@ -1,0 +1,35 @@
+---
+// Tool tier line-art: S is one screen, M is up to three with email out, L is up to six with storage and admin.
+interface Props { tier: 'S' | 'M' | 'L' }
+const { tier } = Astro.props;
+const screen = (x: number, y: number, d: number) => `M${x} ${y}h44v60h-44zM${x} ${y + 9}h44M${x + 7} ${y + 18}h30M${x + 7} ${y + 26}h22M${x + 7} ${y + 44}h30v8h-30z`;
+---
+<svg class="schematic" viewBox="0 0 300 120" role="img" aria-label={`Tool ${tier} diagram`}>
+  {tier === 'S' && (
+    <g>
+      <path class="draw" style="--d:100ms" d={screen(128, 28, 0)} />
+      <text x="150" y="112" text-anchor="middle" class="fade" style="--d:600ms">1 screen · no data</text>
+    </g>
+  )}
+  {tier === 'M' && (
+    <g>
+      {[40, 106, 172].map((x, i) => <path class="draw" style={`--d:${100 + i * 150}ms`} d={screen(x, 28, 0)} />)}
+      <path class="draw faint" style="--d:500ms" d="M86 58h18M152 58h18M218 58h22" />
+      <path class="draw" style="--d:700ms" d="M242 46h28v22h-28zM242 46l14 11 14-11" />
+      <text x="150" y="112" text-anchor="middle" class="fade" style="--d:900ms">Up to 3 · saved and emailed</text>
+    </g>
+  )}
+  {tier === 'L' && (
+    <g>
+      {[0, 1, 2, 3, 4, 5].map((k) => {
+        const x = 18 + (k % 3) * 52; const y = k < 3 ? 6 : 52;
+        return <path class="draw" style={`--d:${100 + k * 90}ms`} d={`M${x} ${y}h38v38h-38zM${x} ${y + 7}h38M${x + 6} ${y + 14}h22M${x + 6} ${y + 26}h26v6h-26z`} />;
+      })}
+      <path class="draw faint" style="--d:700ms" d="M176 46h22" />
+      <path class="draw" style="--d:800ms" d="M204 30c0-5 36-5 36 0v34c0 5-36 5-36 0zM204 30c0 5 36 5 36 0M204 41c0 5 36 5 36 0" />
+      <path class="draw faint" style="--d:900ms" d="M246 46h12" />
+      <path class="draw" style="--d:1000ms" d="M262 30h28v32h-28zM262 38h28M268 46h16M268 52h12" />
+      <text x="150" y="112" text-anchor="middle" class="fade" style="--d:1100ms">Up to 6 · stored · admin view</text>
+    </g>
+  )}
+</svg>

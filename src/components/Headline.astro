@@ -1,0 +1,17 @@
+---
+// Kinetic headline: reveals line by line. Pass lines as an array; mark the highlighted word with `hl`.
+// `stop` lands the lime square at the end (only on Black).
+interface Props { lines: string[]; hl?: string; tag?: string; class?: string; stop?: boolean; id?: string }
+const { lines, hl, tag = 'h2', class: cls = 'display-l', stop = false, id } = Astro.props;
+const Tag = tag as any;
+function split(line: string) {
+  if (!hl || !line.includes(hl)) return [{ t: line, hl: false }];
+  const i = line.lastIndexOf(hl);
+  return [{ t: line.slice(0, i), hl: false }, { t: hl, hl: true }, { t: line.slice(i + hl.length), hl: false }].filter((p) => p.t);
+}
+---
+<Tag class:list={['lines', cls]} data-reveal id={id}>
+  {lines.map((line, i) => (
+    <span class="line"><span style={`--d:${i * 90}ms`}>{split(line).map((p) => p.hl ? <span class="hl">{p.t}</span> : p.t)}{stop && i === lines.length - 1 && <span class="stop land" style={`--d:${lines.length * 90 + 380}ms`} aria-hidden="true"></span>}</span></span>
+  ))}
+</Tag>

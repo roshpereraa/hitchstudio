@@ -1,0 +1,268 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import Headline from '../components/Headline.astro';
+import TierSchematic from '../components/TierSchematic.astro';
+import { tools, toolChecklist } from '../data/site';
+---
+<Base title="Hitch Tools: custom calculators, quote builders and forms | Hitch Studio" description="Custom tools for your website: cost calculators, PDF quote builders and intake forms with conditional logic. Sized into three tiers. Try the live demos.">
+  <section class="page-hero" aria-labelledby="tools-h">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:0">
+        <div class="stack-24">
+          <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>Hitch Tools</p>
+          <Headline tag="h1" id="tools-h" class="display-xl" lines={['Tools that', 'do the asking.']} />
+        </div>
+        <div class="stack-24 reveal">
+          <p class="body-l muted">A custom tool is any coded feature built for your business: a calculator, a quote builder, an eligibility checker, a booking or intake flow. It does the back-and-forth before the phone rings.</p>
+          <div class="row-wrap"><a class="btn" href="#demos">Try the demos <Arrow /></a><a class="link" href="/pricing#tools-h">Tier prices <Arrow /></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tiers-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Three sizes</p>
+          <Headline id="tiers-h" lines={['Sized on the call.', 'Never quoted.']} />
+        </div>
+        <p class="body-l muted reveal">Each tool fits one of three tiers. The tier is the highest one any row of the checklist reaches.</p>
+      </div>
+      <div class="tiers">
+        {tools.map((t, i) => (
+          <article class="tier reveal" style={`--d:${i * 90}ms`}>
+            <TierSchematic tier={t.key as 'S' | 'M' | 'L'} />
+            <div class="stack-8">
+              <h3 class="h3">{t.name}.</h3>
+              <p class="muted">{t.example}</p>
+            </div>
+            <ul class="pkg-facts">
+              <li><span>Screens or steps</span><span>{t.screens}</span></li>
+              <li><span>Saves data</span><span>{t.data}</span></li>
+              <li><span>Added time</span><span>{t.time}</span></li>
+            </ul>
+          </article>
+        ))}
+      </div>
+      <div class="split mt-64" style="gap:24px">
+        <div class="stack-12">
+          <h3 class="h4">The sizing checklist.</h3>
+          <p class="muted small">Anything beyond Tool L, such as logins, payments logic, more than 2 integrations or more than 6 screens, goes to Rope Digital.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="compare" style="min-width:520px">
+            <thead><tr><td></td><th scope="col">S</th><th scope="col">M</th><th scope="col">L</th></tr></thead>
+            <tbody>{toolChecklist.map((r) => <tr><th scope="row">{r.q}</th><td>{r.s}</td><td>{r.m}</td><td>{r.l}</td></tr>)}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="demos" class="section bg-ash" aria-labelledby="demos-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Live demos</p>
+          <Headline id="demos-h" lines={['Try them.', 'They work.']} />
+        </div>
+        <p class="body-l muted reveal">The same components ship to client sites. Demo answers stay in your browser and are never treated as an enquiry.</p>
+      </div>
+
+      <div class="tool-tabs" role="tablist" aria-label="Tool demos">
+        <button role="tab" id="tab-calc" aria-controls="calc" aria-selected="true" tabindex="0">Cost calculator · S</button>
+        <button role="tab" id="tab-quote" aria-controls="quote" aria-selected="false" tabindex="-1">Quote builder · M</button>
+        <button role="tab" id="tab-intake" aria-controls="intake" aria-selected="false" tabindex="-1">Intake form · M</button>
+      </div>
+
+      <!-- S: Cost calculator -->
+      <div class="tool-panel" role="tabpanel" id="calc" aria-labelledby="tab-calc" data-calc>
+        <div class="tool-panel-head"><p class="h4">Renovation cost estimator.</p><p class="mono muted">Tool S · 1 screen · Ironbark Builders demo</p></div>
+        <div class="tool-body">
+          <form class="tool-inputs" onsubmit="return false">
+            <fieldset class="field">
+              <legend>Project</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="project" value="bathroom" checked /><span>Bathroom</span></label>
+                <label class="choice"><input type="radio" name="project" value="kitchen" /><span>Kitchen</span></label>
+                <label class="choice"><input type="radio" name="project" value="deck" /><span>Deck</span></label>
+                <label class="choice"><input type="radio" name="project" value="extension" /><span>Extension</span></label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <div class="range-row"><label for="calc-area">Area</label><output class="mono-m" for="calc-area" data-area-out>8 m²</output></div>
+              <input class="range" id="calc-area" name="area" type="range" min="2" max="80" value="8" step="1" />
+            </div>
+            <fieldset class="field">
+              <legend>Finish</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="finish" value="standard" checked /><span>Standard</span></label>
+                <label class="choice"><input type="radio" name="finish" value="premium" /><span>Premium</span></label>
+                <label class="choice"><input type="radio" name="finish" value="luxury" /><span>Luxury</span></label>
+              </div>
+            </fieldset>
+            <fieldset class="field">
+              <legend>Extras</legend>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="extra" value="demolition" /><span>Demolition</span></label>
+                <label class="choice"><input type="checkbox" name="extra" value="plumbing" /><span>New plumbing</span></label>
+                <label class="choice"><input type="checkbox" name="extra" value="electrical" /><span>Electrical</span></label>
+                <label class="choice"><input type="checkbox" name="extra" value="permits" /><span>Permits</span></label>
+              </div>
+            </fieldset>
+          </form>
+          <div class="tool-output on-black" aria-live="polite">
+            <p class="mono muted">Estimated cost</p>
+            <p class="big" data-calc-out>US$0</p>
+            <ul class="rows" data-calc-rows></ul>
+            <a class="btn btn-lime" href="/book" style="align-self:flex-start">Book a site visit <Arrow /></a>
+            <p class="tool-note">Demo figures. On a client site, the rates come from the business and update without code.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- M: Quote builder -->
+      <div class="tool-panel" role="tabpanel" id="quote" aria-labelledby="tab-quote" data-quote hidden>
+        <div class="tool-panel-head"><p class="h4">Job quote builder.</p><p class="mono muted">Tool M · 3 steps · emails a PDF</p></div>
+        <div class="tool-body">
+          <form class="tool-inputs" novalidate data-qb-form>
+            <div class="steps-bar" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+            <p class="mono muted" data-qb-step-label>Step 1 of 3</p>
+
+            <div class="qb-step stack-24" data-step="1">
+              <fieldset class="field">
+                <legend>What do you need?</legend>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="job" value="Roof repair" checked /><span>Roof repair</span></label>
+                  <label class="choice"><input type="radio" name="job" value="Fence" /><span>Fence</span></label>
+                  <label class="choice"><input type="radio" name="job" value="Painting" /><span>Painting</span></label>
+                  <label class="choice"><input type="radio" name="job" value="Landscaping" /><span>Landscaping</span></label>
+                </div>
+              </fieldset>
+              <div class="field">
+                <label for="qb-size">Size of the job</label>
+                <select class="select" id="qb-size" name="size">
+                  <option value="small">Small: a day or less</option>
+                  <option value="medium" selected>Medium: two to four days</option>
+                  <option value="large">Large: a week or more</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="qb-step stack-24" data-step="2" hidden>
+              <fieldset class="field">
+                <legend>When do you need it done?</legend>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="when" value="As soon as possible" checked /><span>As soon as possible</span></label>
+                  <label class="choice"><input type="radio" name="when" value="Within a month" /><span>Within a month</span></label>
+                  <label class="choice"><input type="radio" name="when" value="Flexible" /><span>Flexible</span></label>
+                </div>
+              </fieldset>
+              <fieldset class="field">
+                <legend>Options</legend>
+                <div class="choices">
+                  <label class="choice"><input type="checkbox" name="opt" value="Remove and dispose of old materials" /><span>Remove old materials</span></label>
+                  <label class="choice"><input type="checkbox" name="opt" value="Premium materials" /><span>Premium materials</span></label>
+                  <label class="choice"><input type="checkbox" name="opt" value="Weekend work" /><span>Weekend work</span></label>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="qb-step stack-24" data-step="3" hidden>
+              <div class="field">
+                <label for="qb-name">Your name</label>
+                <input class="input" id="qb-name" name="name" autocomplete="name" required />
+                <p class="error">Add your name for the quote.</p>
+              </div>
+              <div class="field">
+                <label for="qb-email">Email for the PDF</label>
+                <input class="input" id="qb-email" name="email" type="email" autocomplete="email" required />
+                <p class="error">Add a valid email.</p>
+              </div>
+              <div class="field">
+                <label for="qb-suburb">Suburb or town</label>
+                <input class="input" id="qb-suburb" name="suburb" autocomplete="address-level2" />
+              </div>
+            </div>
+
+            <div class="row-wrap">
+              <button class="btn btn-outline" type="button" data-qb-back hidden>Back</button>
+              <button class="btn" type="button" data-qb-next>Next <Arrow /></button>
+              <button class="btn" type="submit" data-qb-submit hidden>Get my PDF quote</button>
+            </div>
+          </form>
+          <div class="tool-output on-black" aria-live="polite">
+            <p class="mono muted">Your quote</p>
+            <p class="big" data-qb-total>US$0</p>
+            <ul class="rows" data-qb-rows></ul>
+            <p class="small" data-qb-done hidden>Your PDF quote is downloading. On a client site, it’s also emailed to you and the business.</p>
+            <p class="tool-note">Demo prices. In a client build, the PDF carries their logo, terms and a link to book.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- M: Intake form -->
+      <div class="tool-panel" role="tabpanel" id="intake" aria-labelledby="tab-intake" data-intake hidden>
+        <div class="tool-panel-head"><p class="h4">New patient intake.</p><p class="mono muted">Tool M · conditional logic · Northside Physio demo</p></div>
+        <div class="tool-body">
+          <form class="tool-inputs" novalidate data-if-form>
+            <fieldset class="field">
+              <legend>What brings you in?</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="reason" value="back" /><span>Back or neck pain</span></label>
+                <label class="choice"><input type="radio" name="reason" value="sport" /><span>Sports injury</span></label>
+                <label class="choice"><input type="radio" name="reason" value="surgery" /><span>After surgery</span></label>
+                <label class="choice"><input type="radio" name="reason" value="other" /><span>Something else</span></label>
+              </div>
+            </fieldset>
+            <div class="field if-q" data-show="sport" hidden>
+              <label for="if-sport">Which sport?</label>
+              <input class="input" id="if-sport" name="sport" placeholder="For example, football" />
+            </div>
+            <fieldset class="field if-q" data-show="sport" hidden>
+              <legend>When did it happen?</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="onset" value="This week" /><span>This week</span></label>
+                <label class="choice"><input type="radio" name="onset" value="This month" /><span>This month</span></label>
+                <label class="choice"><input type="radio" name="onset" value="Longer ago" /><span>Longer ago</span></label>
+              </div>
+            </fieldset>
+            <fieldset class="field if-q" data-show="surgery" hidden>
+              <legend>Do you have a referral from your surgeon?</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="referral" value="yes" /><span>Yes</span></label>
+                <label class="choice"><input type="radio" name="referral" value="no" /><span>Not yet</span></label>
+              </div>
+            </fieldset>
+            <div class="field if-q" data-show="back,sport,surgery,other" hidden>
+              <div class="range-row"><label for="if-pain">Pain today</label><output class="mono-m" for="if-pain" data-pain-out>4 / 10</output></div>
+              <input class="range" id="if-pain" name="pain" type="range" min="0" max="10" value="4" />
+            </div>
+            <div class="field if-q" data-show="back,sport,surgery,other" hidden>
+              <label for="if-fund">How will you pay?</label>
+              <select class="select" id="if-fund" name="fund">
+                <option value="self">Self-funded</option>
+                <option value="insurance">Private health insurance</option>
+                <option value="scheme">Government or workplace scheme</option>
+              </select>
+            </div>
+            <div class="field if-q" data-show-fund="insurance" hidden>
+              <label for="if-insurer">Insurer</label>
+              <input class="input" id="if-insurer" name="insurer" placeholder="For example, Bupa" />
+            </div>
+          </form>
+          <div class="tool-output on-black" aria-live="polite">
+            <p class="mono muted">Recommended booking</p>
+            <p class="big" data-if-out>Choose a reason.</p>
+            <ul class="rows" data-if-rows></ul>
+            <p class="tool-note">On a client site, answers are sent securely to the clinic and the right appointment type opens in their booking system.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../scripts/tools.ts"></script>
+</Base>

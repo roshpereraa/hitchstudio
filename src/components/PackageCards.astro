@@ -1,0 +1,25 @@
+---
+// Package cards without prices. Prices live on /pricing only.
+import { packages } from '../data/site';
+import Arrow from './Arrow.astro';
+interface Props { popular?: string; link?: boolean }
+const { popular, link = true } = Astro.props;
+---
+<div class="pkg-cards">
+  {packages.map((p, i) => (
+    <article class:list={['pkg reveal', popular === p.key && 'is-popular']} style={`--d:${i * 80}ms`}>
+      <div class="pkg-top">
+        <h3 class="h3">{p.name}.</h3>
+        {popular === p.key && <span class="pkg-badge">Most popular</span>}
+      </div>
+      <p class="muted">{p.for}</p>
+      <ul class="pkg-facts">
+        <li><span>Pages</span><span>{p.pages}</span></li>
+        <li><span>Live in</span><span>{p.delivery}</span></li>
+        <li><span>Revision rounds</span><span>{p.revisions}</span></li>
+        <li><span>Booking link</span><span>{p.booking ? 'Included' : '—'}</span></li>
+      </ul>
+      {link && <a class:list={['btn', popular === p.key ? 'btn-white' : 'btn-outline']} href={`/pricing#${p.key}`}>See the price <Arrow /></a>}
+    </article>
+  ))}
+</div>

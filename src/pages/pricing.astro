@@ -1,0 +1,190 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import Headline from '../components/Headline.astro';
+import Faq from '../components/Faq.astro';
+import { packages, everyPackage, care, tools, toolChecklist, addons, pricingFaqs, site } from '../data/site';
+const usd = (n: number) => `US$${n.toLocaleString('en-US')}`;
+const rows: { label: string; key: 'pages' | 'for' | 'copy' | 'form' | 'booking' | 'gbp' | 'seo' | 'delivery' | 'revisions' }[] = [
+  { label: 'Pages', key: 'pages' },
+  { label: 'Who it’s for', key: 'for' },
+  { label: 'Copywriting', key: 'copy' },
+  { label: 'Enquiry or quote form', key: 'form' },
+  { label: 'Booking or practice-software link', key: 'booking' },
+  { label: 'Google Business Profile setup', key: 'gbp' },
+  { label: 'Local SEO foundations', key: 'seo' },
+  { label: 'Live in', key: 'delivery' },
+  { label: 'Revision rounds', key: 'revisions' },
+];
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: pricingFaqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+  ...packages.map((p) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `${p.name} website package`,
+    provider: { '@id': `${site.url}/#business` },
+    offers: { '@type': 'Offer', price: p.price, priceCurrency: 'USD' },
+  })),
+];
+---
+<Base title="Pricing | Hitch Studio" description="Fixed website prices in USD for Australia, the UK and the US. Essential US$1,500, Growth US$2,500, Pro US$3,900, plus care plans, custom tools and add-ons." schema={schema}>
+  <section class="page-hero" aria-labelledby="pricing-h">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:0">
+        <div class="stack-24">
+          <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>Pricing</p>
+          <Headline tag="h1" id="pricing-h" class="display-xl" lines={['One fair', 'price.']} />
+        </div>
+        <div class="stack-16 reveal">
+          <p class="body-l muted">Three websites, two care plans, three tool sizes and a short list of add-ons. Nothing is quoted outside it.</p>
+          <p class="mono">All prices in USD, for every market.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="sites-h">
+    <div class="wrap">
+      <h2 id="sites-h" class="sr-only">Website packages</h2>
+      <div class="pkg-cards">
+        {packages.map((p, i) => (
+          <article id={p.key} class:list={['pkg reveal', p.key === 'growth' && 'is-popular']} style={`--d:${i * 80}ms`}>
+            <div class="pkg-top"><h3 class="h3">{p.name}.</h3>{p.key === 'growth' && <span class="pkg-badge">Most popular</span>}</div>
+            <p class="price"><small>US$</small>{p.price.toLocaleString('en-US')}</p>
+            <p class="muted">{p.for}</p>
+            <ul class="pkg-facts">
+              <li><span>Pages</span><span>{p.pages}</span></li>
+              <li><span>Live in</span><span>{p.delivery}</span></li>
+              <li><span>Revision rounds</span><span>{p.revisions}</span></li>
+              <li><span>Care from</span><span>US$69 a month</span></li>
+            </ul>
+            <a class:list={['btn', p.key === 'growth' && 'btn-white']} href={`/book?package=${p.key}`} data-track="cta_book">Book a call <Arrow /></a>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-64 reveal">
+        <div class="table-wrap">
+          <table class="compare">
+            <caption class="sr-only">Website packages compared</caption>
+            <thead>
+              <tr><td></td>{packages.map((p) => <th scope="col">{p.name}</th>)}</tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Price</th>{packages.map((p) => <td class="price-cell">{usd(p.price)}</td>)}</tr>
+              {rows.map((r) => (
+                <tr><th scope="row">{r.label}</th>{packages.map((p) => <td>{p[r.key] ?? <span class="dash">—</span>}</td>)}</tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div class="split mt-48" style="gap:24px">
+          <p class="h4">Every package includes:</p>
+          <ul class="checklist">{everyPackage.map((e) => <li>{e}.</li>)}</ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ash" aria-labelledby="care-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Care plans</p>
+          <Headline id="care-h" lines={['Looked after,', 'every month.']} />
+        </div>
+        <p class="body-l reveal"><strong>Care is required for the first 12 months.</strong> After that it rolls monthly with 30 days’ notice. Leave, and you get a full export of your site.</p>
+      </div>
+      <div class="pkg-cards care-cards">
+        {care.map((c, i) => (
+          <article class="pkg reveal" style={`--d:${i * 80}ms`}>
+            <h3 class="h3">{c.name}.</h3>
+            <p class="price"><small>US$</small>{c.price}<span class="small muted per"> a month</span></p>
+            <ul class="pkg-facts">
+              <li><span>Hosting, SSL, backups, security and uptime</span><span>{c.hosting}</span></li>
+              <li><span>Content edits</span><span>{c.edits}</span></li>
+              <li><span>Google profile posts and review replies</span><span>{c.gbp ?? '—'}</span></li>
+              <li><span>Monthly performance report</span><span>{c.report ?? '—'}</span></li>
+              <li><span>Response time</span><span>{c.response}</span></li>
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tools-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Hitch Tools</p>
+          <Headline id="tools-h" lines={['Custom tools,', 'sized not quoted.']} />
+        </div>
+        <p class="body-l muted reveal">Calculators, quote builders, intake forms. Each tool is sized on the call. The tier is the highest one any row reaches. <a class="link" href="/tools">Try the demos <Arrow /></a></p>
+      </div>
+      <div class="table-wrap reveal">
+        <table class="compare">
+          <caption class="sr-only">Hitch Tools tiers</caption>
+          <thead><tr><td></td>{tools.map((t) => <th scope="col">{t.name}</th>)}</tr></thead>
+          <tbody>
+            <tr><th scope="row">Price per tool</th>{tools.map((t) => <td class="price-cell">{usd(t.price)}</td>)}</tr>
+            <tr><th scope="row">Screens or steps</th>{tools.map((t) => <td>{t.screens}</td>)}</tr>
+            <tr><th scope="row">Example</th>{tools.map((t) => <td>{t.example}</td>)}</tr>
+            <tr><th scope="row">Saves data</th>{tools.map((t) => <td>{t.data}</td>)}</tr>
+            <tr><th scope="row">Integrations</th>{tools.map((t) => <td>{t.integrations}</td>)}</tr>
+            <tr><th scope="row">Added delivery time</th>{tools.map((t) => <td>{t.time}</td>)}</tr>
+            <tr><th scope="row">Tool care</th>{tools.map((t) => <td>{usd(t.care)} a month</td>)}</tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="split mt-48" style="gap:24px">
+        <div class="stack-12">
+          <p class="h4">The sizing checklist.</p>
+          <p class="muted small">Anything beyond Tool L, such as logins, payments logic, more than 2 integrations or more than 6 screens, goes to Rope Digital.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="compare" style="min-width:520px">
+            <thead><tr><td></td><th scope="col">S</th><th scope="col">M</th><th scope="col">L</th></tr></thead>
+            <tbody>{toolChecklist.map((r) => <tr><th scope="row">{r.q}</th><td>{r.s}</td><td>{r.m}</td><td>{r.l}</td></tr>)}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ash" aria-labelledby="addons-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Add-ons</p>
+          <Headline id="addons-h" lines={['Fixed-price', 'add-ons.']} />
+        </div>
+        <ul class="ruled addons">
+          {addons.map((a) => (
+            <li class="reveal">
+              <div class="stack-8"><h3 class="h4">{a.name}.</h3><p class="muted small">{a.detail}</p></div>
+              <p class="mono-m addon-price">{a.price}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="pfaq-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Pricing questions</p>
+          <Headline id="pfaq-h" lines={['The fine print,', 'in plain words.']} />
+          <p class="mono reveal">All prices in USD.</p>
+        </div>
+        <Faq items={pricingFaqs} />
+      </div>
+    </div>
+  </section>
+</Base>

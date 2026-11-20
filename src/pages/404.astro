@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+---
+<Base title="Page not found | Hitch Studio" description="This page took a wrong turn." booking={false} noindex>
+  <section class="section" style="min-height:70vh;display:flex;align-items:center" aria-labelledby="nf-h">
+    <div class="wrap">
+      <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>404</p>
+      <h1 id="nf-h" class="display-xl lines mt-24" data-reveal><span class="line"><span>This page took</span></span><span class="line"><span style="--d:90ms">a wrong <span class="hl">turn.</span></span></span></h1>
+      <p class="body-l muted mt-32 reveal">Head back to the front door.</p>
+      <div class="row-wrap mt-32 reveal"><a class="btn btn-lg" href="/">Front door <Arrow /></a><a class="btn btn-lg btn-secondary" href="/work">See the work</a></div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Privacy | Hitch Studio" description="How Hitch Studio collects, uses and protects personal information, under UK GDPR, the Australian Privacy Act and US state privacy laws." booking={false}>
+  <section class="section" style="padding-top:clamp(48px,7vw,96px)" aria-labelledby="privacy-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Legal</p>
+          <h1 id="privacy-h" class="display-l">Privacy.</h1>
+          <p class="mono muted">Draft for legal review · November 2026</p>
+        </div>
+        <div class="prose body-l" style="font-size:1.0625rem">
+          <p>Rope Digital LLC, trading as Hitch Studio, is responsible for the personal information collected through hitch.build. This notice explains what we collect, why, and your rights in Australia, the United Kingdom and the United States.</p>
+
+          <h2>What we collect</h2>
+          <ul>
+            <li>Details you give us in forms: name, email, phone, business name, sector, market, website and what you need.</li>
+            <li>How you found us: the page you landed on and campaign tags (UTM) from ads and links.</li>
+            <li>With your consent, analytics and advertising cookies that show how the site is used.</li>
+          </ul>
+          <p>Answers you enter into the tool demos on /tools stay in your browser and are not sent to us.</p>
+
+          <h2>Why we use it</h2>
+          <ul>
+            <li>To arrange your call, send your quote and deliver our services (contract and legitimate interests).</li>
+            <li>To understand which pages and ads work (consent, for cookies).</li>
+            <li>To meet legal and tax obligations.</li>
+          </ul>
+
+          <h2>Who we share it with</h2>
+          <p>Our CRM, email, scheduling (Cal.com), payment (Stripe), hosting and analytics providers, under contract, and Rope Digital staff who deliver the work. We don’t sell personal information. Some providers store data outside your country, including in the US. Where UK GDPR applies, we rely on recognised transfer safeguards.</p>
+
+          <h2 id="cookies">Cookies</h2>
+          <p>Essential cookies run the site. Analytics and ad cookies, including Google Analytics, Google Ads and the Meta Pixel, load only after you choose “Accept all”. You can change your choice any time from “Cookie settings” in the footer.</p>
+
+          <h2>How long we keep it</h2>
+          <p>Enquiries we don’t proceed with are deleted after 24 months. Client records are kept for 7 years for tax purposes.</p>
+
+          <h2>Your rights</h2>
+          <ul>
+            <li><strong>UK:</strong> access, correction, deletion, restriction, objection and portability under UK GDPR, and the right to complain to the ICO.</li>
+            <li><strong>Australia:</strong> access and correction under the Privacy Act 1988 and the Australian Privacy Principles, and the right to complain to the OAIC.</li>
+            <li><strong>US:</strong> depending on your state, the right to know, delete, correct and opt out of targeted advertising. We honour Global Privacy Control signals.</li>
+          </ul>
+          <p>To use any of these rights, email <a href={`mailto:${site.email}`}>{site.email}</a>. We reply within 30 days.</p>
+
+          <h2>Contact</h2>
+          <p>Rope Digital LLC, trading as Hitch Studio. <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,23 @@
+---
+// Silent, decorative, poster-first video. The poster is a real <img> (the LCP image for the hero).
+// Playback is managed by /scripts/video.js: plays only on screen, never more than two at once,
+// and falls back to the poster with reduced motion or Save-Data.
+interface Props {
+  name: string;           // base name in /public/video
+  mobile?: string;        // optional vertical cut for small screens
+  alt?: string;
+  eager?: boolean;        // hero: load poster eagerly with high priority
+  hero?: boolean;
+  class?: string;
+  sizes?: string;
+}
+const { name, mobile, alt = '', eager = false, hero = false, class: cls = '', sizes = '100vw' } = Astro.props;
+const poster = `/video/${name}.webp`;
+---
+<div class:list={['media', cls]} data-video data-hero={hero ? '' : undefined} data-src={`/video/${name}`} data-mobile={mobile ? `/video/${mobile}` : undefined}>
+  <picture>
+    {mobile && <source media="(max-width: 599px)" srcset={`/video/${mobile}.webp`} type="image/webp" />}
+    <img src={poster} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding={eager ? 'sync' : 'async'} fetchpriority={eager ? 'high' : 'auto'} width="1280" height="720" sizes={sizes} />
+  </picture>
+  <video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1" disableremoteplayback></video>
+</div>

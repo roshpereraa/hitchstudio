@@ -1,0 +1,106 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import Headline from '../components/Headline.astro';
+import ProcessSchematic from '../components/ProcessSchematic.astro';
+import DoorSchematic from '../components/DoorSchematic.astro';
+import { process, standards, needFromYou, care } from '../data/site';
+---
+<Base title="How it works: live in days | Hitch Studio" description="Five steps from first call to a live website in 2–4 working days. What you do at each step, what's in care, and the standards every Hitch Studio site passes.">
+  <section class="page-hero" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:0">
+        <div class="stack-24">
+          <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>How it works</p>
+          <Headline tag="h1" id="how-h" class="display-xl" lines={['Live in', 'days.']} hl="days." />
+        </div>
+        <p class="body-l muted reveal">The same five steps on every site. You spend about an hour with us. We do the rest.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="steps-h">
+    <div class="wrap">
+      <h2 id="steps-h" class="sr-only">The five steps</h2>
+      <div class="process">
+        <div class="process-visual"><ProcessSchematic markerAt={0} /></div>
+        <ol class="process-steps">
+          {process.map((s, i) => (
+            <li data-process-step>
+              <div class="row"><span class="mono muted">0{i + 1} · {s.when}</span><span class="mono muted">{s.time}</span></div>
+              <h3 class="display-m">{s.name}.</h3>
+              <p class="body-l muted">{s.body}</p>
+              <p class="you small"><span class="mono">What you do</span><br />{s.you}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ash" aria-labelledby="inc-h">
+    <div class="wrap">
+      <div class="split wide-right" style="align-items:center">
+        <div class="stack-24">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>What’s in care</p>
+          <Headline id="inc-h" lines={['We look after it,', 'after launch.']} />
+          <p class="body-l muted reveal">Every build includes 12 months of care. It keeps your site fast, safe and up to date.</p>
+          <div class="reveal" style="max-width:420px"><DoorSchematic /></div>
+        </div>
+        <div class="stack-24">
+          {care.map((c) => (
+            <div class="reveal">
+              <h3 class="h3">{c.name}.</h3>
+              <ul class="checklist mt-16">
+                <li>Hosting, SSL, backups, security and uptime monitoring.</li>
+                <li>Content edits: {c.edits}.</li>
+                {c.gbp && <li>Google Business Profile: {c.gbp}.</li>}
+                {c.report && <li>A monthly performance report.</li>}
+                <li>Response time: {c.response}.</li>
+              </ul>
+            </div>
+          ))}
+          <a class="link reveal" href="/pricing#care-h">Care prices <Arrow /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-black" aria-labelledby="std-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Quality standards</p>
+          <Headline id="std-h" lines={['Checked before', 'it goes live.']} />
+        </div>
+        <ol class="ruled">
+          {standards.map((s, i) => (
+            <li class="reveal" style="grid-template-columns:80px 1fr">
+              <span class="idx mono">0{i + 1}</span>
+              <p class="body-l">{s}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div class="stat-row mt-64">
+        <div class="stat reveal"><span class="mono muted">Live in</span><span class="n"><span data-count="4">4</span> days</span></div>
+        <div class="stat reveal"><span class="mono muted">Lighthouse performance</span><span class="n"><span data-count="90">90</span>+</span></div>
+        <div class="stat reveal"><span class="mono muted">Accessibility</span><span class="n"><span data-count="95">95</span>+</span></div>
+        <div class="stat reveal"><span class="mono muted">Care response</span><span class="n"><span data-count="4">4</span> hrs</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="need-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>What we need from you</p>
+          <Headline id="need-h" lines={['A short list.']} />
+          <p class="body-l muted reveal">If something’s missing, we launch anyway with copy from your sector kit. Ten working days after your deposit, whatever you send.</p>
+        </div>
+        <ul class="checklist">{needFromYou.map((n) => <li class="body-l reveal">{n}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+</Base>

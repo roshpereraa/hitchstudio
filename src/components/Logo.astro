@@ -1,0 +1,11 @@
+---
+// "hitch" SemiBold, "studio" Regular, then the square.
+// On White the mono version is used (black square): lime fades on white.
+interface Props { tone?: 'mono' | 'lime'; endorsed?: boolean; class?: string; short?: boolean }
+const { tone = 'mono', endorsed = false, short = false, class: cls = '' } = Astro.props;
+---
+<span class:list={['logo-wrap', endorsed && 'endorsed', cls]}>
+  <span class="logo" aria-hidden="true">hitch{!short && <span class="logo-studio">studio</span>}<span class:list={['stop', tone === 'mono' && 'stop-black']}></span></span>
+  {endorsed && <span class="mono" style="color:var(--on-black-2)">A Rope Digital studio</span>}
+  <span class="sr-only">Hitch Studio</span>
+</span>

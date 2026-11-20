@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import Arrow from '../../components/Arrow.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import { cases } from '../../data/site';
+---
+<Base title="You're booked | Hitch Studio" description="Your call with Hitch Studio is booked. Here's what happens next." booking={false} noindex>
+  <section class="section on-black" style="padding-top:clamp(64px,10vw,140px)" aria-labelledby="t-h">
+    <div class="wrap">
+      <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>Booked</p>
+      <h1 id="t-h" class="display-xl lines mt-24" data-reveal><span class="line"><span>See you</span></span><span class="line"><span style="--d:90ms">soon<span class="stop land" style="--d:500ms" aria-hidden="true"></span></span></span></h1>
+      <p class="body-l mt-32 reveal" style="color:#dcdcdc;max-width:46ch" data-thanks-line>Your call is booked. A calendar invite and a video link are on their way to your inbox.</p>
+    </div>
+  </section>
+  <section class="section" aria-labelledby="next-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="stack-24">
+          <h2 id="next-h" class="display-m reveal">What happens next.</h2>
+          <ol class="ruled">
+            <li class="reveal" style="grid-template-columns:60px 1fr"><span class="idx mono">01</span><p>We look at your current site and Google profile before the call.</p></li>
+            <li class="reveal" style="grid-template-columns:60px 1fr"><span class="idx mono">02</span><p>On the call, we recommend one package and give you a fixed price.</p></li>
+            <li class="reveal" style="grid-template-columns:60px 1fr"><span class="idx mono">03</span><p>If you go ahead, you sign and pay the deposit through one link. We book your content call before we hang up.</p></li>
+          </ol>
+        </div>
+        <div class="stack-24">
+          <h2 class="display-m reveal">Have these ready.</h2>
+          <ul class="checklist">
+            <li class="reveal">Your current website, if you have one.</li>
+            <li class="reveal">Your Google Business Profile.</li>
+            <li class="reveal">Two or three sites you like the look of.</li>
+            <li class="reveal">Your list of services.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section bg-ash" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="work-h" class="display-m reveal">While you wait.</h2><a class="link reveal" href="/work">See all the work <Arrow /></a></div>
+      <div class="case-grid three">{cases.map((c) => <CaseCard c={c} />)}</div>
+    </div>
+  </section>
+  <script>
+    try {
+      const slot = JSON.parse(sessionStorage.getItem('hitch_slot') || 'null');
+      const el = document.querySelector('[data-thanks-line]');
+      if (slot && el) el.textContent = `Your call is booked for ${slot.slot_local} (${String(slot.tz).replace(/_/g, ' ')}). A calendar invite and a video link are on their way to your inbox.`;
+    } catch { /* ignore */ }
+  </script>
+</Base>

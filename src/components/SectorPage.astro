@@ -1,0 +1,186 @@
+---
+import Base from '../layouts/Base.astro';
+import Video from './Video.astro';
+import Arrow from './Arrow.astro';
+import Headline from './Headline.astro';
+import CaseCard from './CaseCard.astro';
+import PackageCards from './PackageCards.astro';
+import Faq from './Faq.astro';
+import DemoDevices from './DemoDevices.astro';
+import QuickEnquiry from './QuickEnquiry.astro';
+import { cases, site, type Sector } from '../data/site';
+interface Props { s: Sector }
+const { s } = Astro.props;
+const sectorCases = cases.filter((c) => c.sector === s.key);
+const demoCase = sectorCases[0];
+const words = s.headline.split(' ');
+// Split the headline into two to three balanced lines for the kinetic reveal.
+const per = Math.ceil(words.length / (words.length > 6 ? 3 : 2));
+const lines: string[] = [];
+for (let i = 0; i < words.length; i += per) lines.push(words.slice(i, i + per).join(' '));
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `${s.label} website design`,
+    serviceType: 'Website design',
+    provider: { '@id': `${site.url}/#business` },
+    areaServed: ['Australia', 'United Kingdom', 'United States'],
+    url: `${site.url}${s.path}`,
+    description: s.description,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: s.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<Base title={s.title} description={s.description} schema={schema} preloadPoster={`/video/${s.video}.webp`} bookingHeadline={`Your ${s.label.toLowerCase()} site, live in days.`}>
+  <section class="hero" aria-labelledby="sector-h">
+    <div class="wrap">
+      <div class="hero-top">
+        <div class="stack-24">
+          <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>{s.eyebrow}</p>
+          <Headline tag="h1" id="sector-h" class="display-l" lines={lines} hl={s.hlWord} />
+        </div>
+        <div class="hero-aside reveal" style="--d:300ms">
+          <p class="body-l">{s.lede}</p>
+          {s.localTerms && (
+            <ul class="mono muted stack-8">
+              {s.localTerms.map((t) => <li>{t.market} · {t.term}</li>)}
+            </ul>
+          )}
+          <div class="hero-ctas">
+            <a class="btn btn-lg" href="/book" data-track="cta_book">Book a call <Arrow /></a>
+            <a class="btn btn-lg btn-secondary" href="#demo">See a {s.label.toLowerCase()} site</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap-wide">
+      <div class="hero-frame scale-in">
+        <div id="sector-video" style="position:absolute;inset:0">
+          <Video name={s.video} alt={`${s.label} businesses at work.`} eager hero />
+        </div>
+        <div class="hero-frame-bar on-black">
+          <p class="mono">{s.label} · AU · UK · US</p>
+          <button class="pause-btn" type="button" aria-controls="sector-video" aria-pressed="false" data-pause>
+            <svg class="i-pause" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect x="1" y="0" width="3" height="10"/><rect x="6" y="0" width="3" height="10"/></svg>
+            <svg class="i-play" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><path d="M1 0l9 5-9 5z"/></svg>
+            <span data-label>Pause</span><span class="sr-only"> background video</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problems -->
+  <section class="section" aria-labelledby="problems-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>The problem</p>
+          <Headline id="problems-h" lines={['Three things holding', 'your site back.']} />
+        </div>
+        <p class="body-l muted reveal">And how a Hitch Studio site fixes each one.</p>
+      </div>
+      <ol class="problems">
+        {s.problems.map((p, i) => (
+          <li class="problem reveal" style={`--d:${i * 80}ms`}>
+            <span class="mono muted">0{i + 1}</span>
+            <h3 class="h3">{p.problem}</h3>
+            <p class="fix body-l"><span class="stop stop-black" aria-hidden="true"></span><span>{p.fix}</span></p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Demo -->
+  <section id="demo" class="section bg-ash" aria-labelledby="demo-h">
+    <div class="wrap">
+      <div class="split wide-right" style="align-items:center">
+        <div class="stack-24">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Sector demo</p>
+          <Headline id="demo-h" lines={[`${s.demoName}.`]} class="display-m" />
+          <p class="body-l muted measure-l reveal">Our {s.label.toLowerCase()} kit, built out as a full demo site. Your site starts here, with your words, photos and services.</p>
+          {demoCase && <a class="btn btn-outline reveal" href={`/work/${demoCase.slug}`}>Open the demo <Arrow /></a>}
+        </div>
+        <div class="reveal scale-in"><DemoDevices s={s} /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case studies -->
+  <section class="section" aria-labelledby="cases-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Work</p>
+          <Headline id="cases-h" lines={[`${s.label} work.`]} />
+        </div>
+        <a class="link reveal" href={`/work?sector=${s.key}`}>All {s.label.toLowerCase()} work <Arrow /></a>
+      </div>
+      <div class="case-grid">
+        {sectorCases.map((c) => <CaseCard c={c} feature />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="section rule-top" aria-labelledby="features-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Built in</p>
+          <Headline id="features-h" lines={[`Made for ${s.label.toLowerCase()}.`]} />
+        </div>
+      </div>
+      <ul class="features">
+        {s.features.map((f, i) => (
+          <li class="reveal" style={`--d:${(i % 2) * 80}ms`}>
+            <h3 class="h4">{f.title}.</h3>
+            <p class="muted">{f.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section class="section bg-ash" aria-labelledby="pkg-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Packages</p>
+          <Headline id="pkg-h" lines={['Three websites.', 'One fair price each.']} />
+        </div>
+        <p class="body-l muted reveal">Most {s.label.toLowerCase()} businesses choose {s.popular === 'pro' ? 'Pro' : 'Growth'}. Prices are on the pricing page, in USD.</p>
+      </div>
+      <PackageCards popular={s.popular} />
+    </div>
+  </section>
+
+  <!-- FAQ and quick enquiry -->
+  <section class="section" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Questions</p>
+          <Headline id="faq-h" lines={['Good questions.']} />
+        </div>
+        <Faq items={s.faqs} />
+      </div>
+      <div class="split wide-right mt-64 rule-top" style="padding-top:64px">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Not ready to book?</p>
+          <h2 class="h3">Send a quick note.</h2>
+          <p class="muted measure">We reply within 4 hours on business days, from a real person.</p>
+        </div>
+        <QuickEnquiry sector={s.key} />
+      </div>
+    </div>
+  </section>
+</Base>

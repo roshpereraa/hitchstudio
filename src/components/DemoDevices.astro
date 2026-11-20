@@ -1,0 +1,36 @@
+---
+// The sector demo site shown on a laptop and a phone.
+import type { Sector } from '../data/site';
+interface Props { s: Sector }
+const { s } = Astro.props;
+---
+<div class="devices" aria-hidden="true">
+  <div class="laptop">
+    <div class="laptop-screen">
+      <div class="screen">
+        <div class="demo">
+          <div class="demo-nav"><span>{s.demoName}</span><i></i></div>
+          <div class="demo-hero">
+            <img src={`/video/${s.video}.webp`} alt="" loading="lazy" width="1280" height="720" />
+            <div class="demo-h">{s.demoHeadline}<br /><span class="demo-cta">{s.demoCta}</span></div>
+          </div>
+          <div class="demo-rows"><i></i><i></i><i></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="laptop-base"></div>
+  </div>
+  <div class="phone">
+    <div class="screen">
+      <div class="demo">
+        <div class="demo-nav"><span>{s.demoName.split(' ')[0]}</span><i></i></div>
+        <div class="demo-hero">
+          <img src={`/video/${s.card}.webp`} alt="" loading="lazy" width="960" height="1200" />
+          <div class="demo-h">{s.demoHeadline}</div>
+        </div>
+        <div class="demo-rows"><i></i><i></i></div>
+        <div class="demo-call">Call now</div>
+      </div>
+    </div>
+  </div>
+</div>

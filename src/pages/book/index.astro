@@ -1,0 +1,112 @@
+---
+import Base from '../../layouts/Base.astro';
+import Arrow from '../../components/Arrow.astro';
+import { site } from '../../data/site';
+const needs = ['A new website', 'Replace my website', 'A custom tool', 'Google Business Profile', 'Photo shoot', 'Not sure yet'];
+---
+<Base title="Book a call | Hitch Studio" description="Book a 20-minute call with Hitch Studio. Tell us about your business, then pick a time that suits you, in your time zone." booking={false}>
+  <section class="section" style="padding-top:clamp(48px,7vw,96px)" aria-labelledby="book-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-24 book-intro">
+          <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>Book a call</p>
+          <h1 id="book-h" class="display-l lines" data-reveal><span class="line"><span>Twenty minutes.</span></span><span class="line"><span style="--d:90ms">One fixed <span class="hl">price.</span></span></span></h1>
+          <p class="body-l muted reveal">Tell us about your business, then pick a time. On the call, we look at your current site and Google profile together and recommend one package.</p>
+          <ol class="checklist reveal">
+            <li>Two minutes to fill in.</li>
+            <li>A 20-minute video call, in your time zone.</li>
+            <li>A fixed quote on the call. No proposals.</li>
+          </ol>
+          <p class="small muted reveal">Prefer email? <a class="link" href={`mailto:${site.email}`}>{site.email}</a></p>
+        </div>
+
+        <div>
+          <div class="steps-bar" aria-hidden="true" style="margin-bottom:16px"><i class="on" data-bstep-bar></i><i data-bstep-bar></i><i></i></div>
+          <p class="mono muted" data-bstep-label>Step 1 of 2 · About you</p>
+
+          <!-- Step 1: the form -->
+          <form class="form-grid mt-24" data-lead-form data-form-type="book_call" action="/api/lead" method="post" novalidate data-book-form>
+            <input type="hidden" name="form" value="book_call" />
+            <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="company_url" tabindex="-1" autocomplete="off" /></label></div>
+            <div class="form-grid two">
+              <div class="field">
+                <label for="b-name">Your name</label>
+                <input class="input" id="b-name" name="name" autocomplete="name" required />
+                <p class="error">Add your name.</p>
+              </div>
+              <div class="field">
+                <label for="b-business">Business name</label>
+                <input class="input" id="b-business" name="business" autocomplete="organization" required />
+                <p class="error">Add your business name.</p>
+              </div>
+              <div class="field">
+                <label for="b-email">Email</label>
+                <input class="input" id="b-email" name="email" type="email" autocomplete="email" required />
+                <p class="error">Add an email we can reach you on.</p>
+              </div>
+              <div class="field">
+                <label for="b-phone">Phone</label>
+                <input class="input" id="b-phone" name="phone" type="tel" autocomplete="tel" required />
+                <p class="error">Add a phone number, with country code if outside your market.</p>
+              </div>
+            </div>
+            <fieldset class="field" data-required-group>
+              <legend>Sector</legend>
+              <div class="choices">
+                {['Trades', 'Clinics', 'Property', 'Other'].map((s) => <label class="choice"><input type="radio" name="sector" value={s.toLowerCase()} required /><span>{s}</span></label>)}
+              </div>
+              <p class="error">Choose a sector.</p>
+            </fieldset>
+            <fieldset class="field" data-required-group>
+              <legend>Market</legend>
+              <div class="choices">
+                {['Australia', 'UK', 'US', 'Other'].map((m) => <label class="choice"><input type="radio" name="market" value={m} required /><span>{m}</span></label>)}
+              </div>
+              <p class="error">Choose a market.</p>
+            </fieldset>
+            <div class="field">
+              <label for="b-site">Current website <span class="muted">(optional)</span></label>
+              <input class="input" id="b-site" name="website" type="url" inputmode="url" placeholder="https://" autocomplete="url" />
+              <p class="error">That doesn’t look like a web address.</p>
+            </div>
+            <fieldset class="field" data-required-group>
+              <legend>What do you need?</legend>
+              <p class="hint">Choose any that apply.</p>
+              <div class="choices">
+                {needs.map((n) => <label class="choice"><input type="checkbox" name="needs" value={n} /><span>{n}</span></label>)}
+              </div>
+              <p class="error">Choose at least one.</p>
+            </fieldset>
+            <input type="hidden" name="package" />
+            <div class="row-wrap mt-16">
+              <button class="btn btn-lg" type="submit">Next: pick a time <Arrow /></button>
+              <p class="small muted" data-form-status role="status" aria-live="polite"></p>
+            </div>
+            <p class="small muted">We use your details to arrange the call and send your quote. See our <a class="link" href="/privacy">privacy notice</a>.</p>
+          </form>
+
+          <!-- Step 2: calendar -->
+          <div class="mt-24" data-book-calendar hidden>
+            {site.calLink ? (
+              <iframe src={`https://cal.com/${site.calLink}?embed=true&layout=month_view`} title="Pick a time for your call" loading="lazy" style="width:100%;min-height:640px;border:1px solid var(--line);border-radius:var(--r)"></iframe>
+            ) : (
+              <div class="slot-picker" data-slots>
+                <div class="slot-head">
+                  <p class="h4">Pick a 20-minute slot.</p>
+                  <p class="mono muted">Times shown in <span data-tz>your time zone</span></p>
+                </div>
+                <div class="slot-days" role="tablist" aria-label="Day" data-days></div>
+                <div class="slot-grid" data-times></div>
+                <div class="row-wrap mt-24">
+                  <button class="btn btn-lg" type="button" data-confirm disabled>Confirm the call <Arrow /></button>
+                  <button class="btn btn-lg btn-outline" type="button" data-back>Back</button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="../../scripts/lead.ts"></script>
+</Base>

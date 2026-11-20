@@ -1,0 +1,83 @@
+---
+// Line-art process schematic: Call, Content, Build, Live. Draws itself on scroll.
+// The lime square marks progress (moved by main.ts when data-sticky is used).
+interface Props { sticky?: boolean; markerAt?: number; class?: string }
+const { sticky = false, markerAt = 3, class: cls = '' } = Astro.props;
+const xs = [64, 197, 330, 463];
+const y = 214;
+const labels = ['Call', 'Content', 'Build', 'Live'];
+const dims = ['20 min', '45 min', '2–4 days', 'Day 4'];
+---
+<svg class:list={['schematic', cls]} viewBox="0 0 528 380" role="img" aria-labelledby="ps-title" data-process-svg>
+  <title id="ps-title">Process diagram: Call, Content, Build, Live.</title>
+  <!-- Sheet frame and corner registration -->
+  <rect class="draw faint" x="0.5" y="0.5" width="527" height="379" />
+  <path class="draw faint" d="M12 0.5v10M0.5 12h10M516 0.5v10M527.5 12h-10M12 379.5v-10M0.5 368h10M516 379.5v-10M527.5 368h-10" />
+  <text x="16" y="28" class="fade">HS-01 · Delivery process</text>
+  <text x="512" y="28" text-anchor="end" class="fade">Scale 1:1</text>
+
+  <!-- Elevation drawings above each node -->
+  <!-- Call: phone -->
+  <g style="--d:200ms">
+    <rect class="draw" x={xs[0] - 13} y="92" width="26" height="46" rx="4" />
+    <path class="draw" d={`M${xs[0] - 5} 97h10M${xs[0] - 4} 132h8`} />
+    <path class="draw faint" d={`M${xs[0] + 20} 104c6 4 6 14 0 18M${xs[0] + 26} 98c10 8 10 26 0 34`} />
+  </g>
+  <!-- Content: document -->
+  <g style="--d:350ms">
+    <path class="draw" d={`M${xs[1] - 20} 86h28l12 12v44h-40z`} />
+    <path class="draw" d={`M${xs[1] + 8} 86v12h12`} />
+    <path class="draw faint" d={`M${xs[1] - 13} 106h26M${xs[1] - 13} 114h26M${xs[1] - 13} 122h18M${xs[1] - 13} 130h24`} />
+  </g>
+  <!-- Build: wireframe -->
+  <g style="--d:500ms">
+    <rect class="draw" x={xs[2] - 30} y="88" width="60" height="50" rx="3" />
+    <path class="draw" d={`M${xs[2] - 30} 98h60`} />
+    <path class="draw faint" d={`M${xs[2] - 24} 104h30v14h-30zM${xs[2] + 10} 104h14v30h-14zM${xs[2] - 24} 122h30v12h-30z`} />
+  </g>
+  <!-- Live: browser with the front door -->
+  <g style="--d:650ms">
+    <rect class="draw" x={xs[3] - 30} y="88" width="60" height="50" rx="3" />
+    <path class="draw" d={`M${xs[3] - 30} 98h60`} />
+    <path class="draw" d={`M${xs[3] - 9} 134v-26h18v26`} />
+    <path class="draw faint" d={`M${xs[3] + 4} 122h2`} />
+  </g>
+  <!-- Leaders from drawings to nodes -->
+  {xs.map((x, i) => <path class="draw faint" style={`--d:${700 + i * 80}ms`} d={`M${x} 146V${y - 20}`} stroke-dasharray="2 3" />)}
+
+  <!-- Main axis -->
+  <path class="draw" style="--d:300ms" d={`M28 ${y}H500`} />
+  <path class="draw" style="--d:300ms" d={`M28 ${y - 6}v12M500 ${y - 6}v12`} />
+
+  <!-- Nodes -->
+  {xs.map((x, i) => (
+    <g data-process-node data-x={x} data-y={y}>
+      <circle class="draw node-fill" style={`--d:${450 + i * 120}ms`} cx={x} cy={y} r="17" />
+      <text x={x} y={y - 30} text-anchor="middle" class="fade" style={`--d:${700 + i * 120}ms`}>{String(i + 1).padStart(2, '0')} {labels[i]}</text>
+    </g>
+  ))}
+
+  <!-- Dimension lines -->
+  {xs.slice(0, 3).map((x, i) => (
+    <g class="fade" style={`--d:${1000 + i * 100}ms`}>
+      <path class="draw faint" d={`M${x} ${y + 34}V${y + 66}M${xs[i + 1]} ${y + 34}V${y + 66}`} />
+      <path class="draw" d={`M${x + 4} ${y + 56}H${xs[i + 1] - 4}M${x + 10} ${y + 52}l-6 4 6 4M${xs[i + 1] - 10} ${y + 52}l6 4-6 4`} />
+      <text x={(x + xs[i + 1]) / 2} y={y + 48} text-anchor="middle">{dims[i]}</text>
+    </g>
+  ))}
+
+  <!-- Day scale -->
+  <path class="draw faint" style="--d:900ms" d={`M28 ${y + 104}H500`} />
+  {Array.from({ length: 10 }, (_, k) => {
+    const x = 28 + k * (472 / 9);
+    return <path class="draw faint" style={`--d:${950 + k * 30}ms`} d={`M${x} ${y + 98}v12`} />;
+  })}
+  <text x="28" y={y + 128} class="fade" style="--d:1200ms">Day −5</text>
+  <text x="249" y={y + 128} text-anchor="middle" class="fade" style="--d:1250ms">Day 0</text>
+  <text x="500" y={y + 128} text-anchor="end" class="fade" style="--d:1300ms">Day 4</text>
+
+  <!-- The full stop: progress marker -->
+  <g data-process-marker style={`transform: translate(${xs[markerAt]}px, ${y}px); transition: transform 700ms cubic-bezier(0.22,1,0.36,1);`}>
+    <rect class="lime land" style="--d:1400ms" x="-6" y="-6" width="12" height="12" />
+  </g>
+</svg>

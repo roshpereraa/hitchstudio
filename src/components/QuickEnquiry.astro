@@ -1,0 +1,31 @@
+---
+// Quick enquiry for people not ready to book. Goes to the same lead endpoint as /book.
+interface Props { sector: string }
+const { sector } = Astro.props;
+---
+<form class="form-grid" data-lead-form data-form-type="quick_enquiry" action="/api/lead" method="post" novalidate>
+  <input type="hidden" name="form" value="quick_enquiry" />
+  <input type="hidden" name="sector" value={sector} />
+  <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="company_url" tabindex="-1" autocomplete="off" /></label></div>
+  <div class="form-grid two">
+    <div class="field">
+      <label for={`qe-name-${sector}`}>Name</label>
+      <input class="input" id={`qe-name-${sector}`} name="name" autocomplete="name" required />
+      <p class="error">Add your name.</p>
+    </div>
+    <div class="field">
+      <label for={`qe-email-${sector}`}>Email</label>
+      <input class="input" id={`qe-email-${sector}`} name="email" type="email" autocomplete="email" required />
+      <p class="error">Add an email we can reply to.</p>
+    </div>
+  </div>
+  <div class="field">
+    <label for={`qe-msg-${sector}`}>Message</label>
+    <textarea class="textarea" id={`qe-msg-${sector}`} name="message" rows="4" required></textarea>
+    <p class="error">Tell us a little about your business.</p>
+  </div>
+  <div class="row-wrap">
+    <button class="btn btn-lg" type="submit">Send it over</button>
+    <p class="small muted" data-form-status role="status" aria-live="polite"></p>
+  </div>
+</form>

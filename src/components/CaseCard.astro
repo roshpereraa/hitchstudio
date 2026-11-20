@@ -1,0 +1,17 @@
+---
+import Video from './Video.astro';
+import Arrow from './Arrow.astro';
+import type { Case } from '../data/site';
+interface Props { c: Case; feature?: boolean; tag?: string }
+const { c, feature = false, tag = 'h3' } = Astro.props;
+const Tag = tag as any;
+---
+<a href={`/work/${c.slug}`} class:list={['case-card reveal', feature && 'case-feature']} data-sector={c.sector}>
+  <Video name={c.video} alt={`${c.client} at work`} sizes="(min-width: 1024px) 33vw, 100vw" />
+  <div class="case-card-meta">
+    <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>{c.sectorLabel} · {c.market} · Sector demo</p>
+    <Tag class="h4">{c.client} <Arrow /></Tag>
+    <p class="muted small">{c.problem}</p>
+    <p class="result mono"><span class="stop stop-black" aria-hidden="true"></span>{c.results[0]}</p>
+  </div>
+</a>

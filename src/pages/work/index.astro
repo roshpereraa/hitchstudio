@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import Headline from '../../components/Headline.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import { cases, sectors } from '../../data/site';
+---
+<Base title="Work | Hitch Studio" description="Websites built by Hitch Studio for trades, clinics and property businesses in Australia, the UK and the US. Filter by sector.">
+  <section class="page-hero" aria-labelledby="work-h">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:48px">
+        <div class="stack-24">
+          <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>Work</p>
+          <Headline tag="h1" id="work-h" class="display-xl" lines={['The work.']} />
+        </div>
+        <p class="body-l muted reveal">Each sector kit, built out as a full site. Client case studies are added here as they launch, with permission.</p>
+      </div>
+      <div class="filters reveal" role="group" aria-label="Filter by sector">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        {sectors.map((s) => <button type="button" data-filter={s.key} aria-pressed="false">{s.label}</button>)}
+      </div>
+    </div>
+  </section>
+  <section class="section" style="padding-top:16px" aria-label="Case studies">
+    <div class="wrap">
+      <div class="case-grid">
+        {cases.map((c, i) => <CaseCard c={c} feature={i === 0} tag="h2" />)}
+      </div>
+    </div>
+  </section>
+</Base>

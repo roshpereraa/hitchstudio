@@ -1,0 +1,19 @@
+---
+import Arrow from './Arrow.astro';
+interface Props { headline?: string }
+const { headline = 'Your front door, online. Live in days.' } = Astro.props;
+const parts = headline.split(/(?<=\.)\s+/);
+---
+<section class="booking bg-ash" aria-labelledby="booking-h">
+  <div class="wrap">
+    <div class="booking-inner">
+      <h2 id="booking-h" class="display-l lines" data-reveal>
+        {parts.map((p, i) => <span class="line"><span style={`--d:${i * 90}ms`}>{p}</span></span>)}
+      </h2>
+      <div class="booking-actions reveal" style="--d:200ms">
+        <a class="btn btn-lg" href="/book" data-track="cta_book">Book a call <Arrow /></a>
+        <a class="link" href="/pricing">See pricing <Arrow /></a>
+      </div>
+    </div>
+  </div>
+</section>

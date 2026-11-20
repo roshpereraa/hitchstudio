@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import Video from '../components/Video.astro';
+import Arrow from '../components/Arrow.astro';
+import Headline from '../components/Headline.astro';
+import { site, markets } from '../data/site';
+const team = [
+  { role: 'Sales and accounts', body: 'Your first call and your named contact after launch.' },
+  { role: 'Writers', body: 'Rope’s marketing team. They turn one recorded call into every word on your site.' },
+  { role: 'Designers', body: 'Rope’s design team. They build from your sector kit, never a public template.' },
+  { role: 'Developers', body: 'Rope’s development team. Forms, booking, analytics and speed.' },
+];
+---
+<Base title="About Hitch Studio | A Rope Digital studio" description="Hitch Studio builds websites for businesses with a front door. A Rope Digital studio, serving Australia, the UK and the US, with a 4-hour response promise.">
+  <section class="section on-black" style="padding-top:clamp(64px,10vw,140px)" aria-labelledby="about-h">
+    <div class="wrap">
+      <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>About</p>
+      <Headline tag="h1" id="about-h" class="display-xl mt-24" lines={['The full stop']} stop />
+      <div class="split mt-64">
+        <p class="body-l reveal" style="color:#dcdcdc">A full stop says done. That’s the promise. No drawn-out projects, no hitches. A finished site, live and working, in days.</p>
+        <div class="stack-16 reveal muted">
+          <p>Hitch Studio does one thing: websites for businesses with a front door. Builders, clinics, property managers. People customers visit, or who visit customers.</p>
+          <p>One menu, one process, one quality bar. Fixed prices, published. We write the words, source the photos and set up your Google profile. You check it. We launch it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="team-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>The team</p>
+          <Headline id="team-h" lines={['Small studio.', 'Big bench.']} />
+        </div>
+        <p class="body-l muted reveal">Hitch Studio is built on Rope Digital’s 25+ specialists. You deal with one named person. Behind them is a full team.</p>
+      </div>
+      <ol class="ruled">
+        {team.map((t, i) => (
+          <li class="reveal">
+            <span class="idx mono">0{i + 1}</span>
+            <h3 class="h4">{t.role}.</h3>
+            <p class="muted">{t.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section aria-label="Studio footage">
+    <div class="wrap-wide"><div class="reveal scale-in fill r-21-9"><Video name="work-phone" class="media-lg" alt="A phone in hand at a small business counter." /></div></div>
+  </section>
+
+  <section class="section" aria-labelledby="rope-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="stack-24">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>A Rope Digital studio</p>
+          <Headline id="rope-h" lines={['Backed by', 'Rope Digital.']} />
+          <p class="body-l muted reveal">Rope Digital is our parent studio, for bigger technology, marketing and staffing work. Every Hitch client contracts with Rope Digital LLC, trading as Hitch Studio.</p>
+          <a class="link reveal" href={site.ropeUrl} rel="noopener">ropedigital.co <Arrow /></a>
+        </div>
+        <div class="stack-48">
+          <div class="reveal">
+            <p class="mono muted">Markets</p>
+            <ul class="checklist mt-16">{markets.map((m) => <li class="body-l">{m}.</li>)}</ul>
+            <p class="small muted mt-16">One site, one price list in USD, for all three.</p>
+          </div>
+          <div class="reveal">
+            <p class="mono muted">Response time</p>
+            <p class="display-m mt-16">4 hours.</p>
+            <p class="muted mt-16">Every enquiry gets a reply from a person within 4 business hours, in your time zone.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

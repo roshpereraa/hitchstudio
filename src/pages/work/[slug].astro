@@ -1,0 +1,142 @@
+---
+import Base from '../../layouts/Base.astro';
+import Video from '../../components/Video.astro';
+import Arrow from '../../components/Arrow.astro';
+import Headline from '../../components/Headline.astro';
+import CaseCard from '../../components/CaseCard.astro';
+import { cases, sectorByKey, type Case } from '../../data/site';
+
+export function getStaticPaths() {
+  return cases.map((c) => ({ params: { slug: c.slug }, props: { c } }));
+}
+const { c } = Astro.props as { c: Case };
+const s = sectorByKey[c.sector];
+const others = cases.filter((x) => x.slug !== c.slug);
+---
+<Base title={`${c.client}: ${s.label.toLowerCase()} website | Hitch Studio`} description={`${c.summary} ${c.results[0]}. A Hitch Studio ${s.label.toLowerCase()} site.`} preloadPoster={`/video/${c.video}.webp`}>
+  <section class="page-hero" aria-labelledby="case-h">
+    <div class="wrap">
+      <a class="link mono reveal" href="/work"><span aria-hidden="true">←</span> All work</a>
+      <div class="hero-top mt-32">
+        <div class="stack-24">
+          <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>{c.client} · {s.label} · {c.market} · Sector demo</p>
+          <Headline tag="h1" id="case-h" class="display-l" lines={[c.headline]} />
+        </div>
+        <p class="body-l reveal" style="--d:200ms">{c.problem}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm" aria-label="Results">
+    <div class="wrap">
+      <div class="stat-row">
+        {c.results.map((r) => <div class="stat reveal"><span class="mono muted">Result</span><span class="n txt">{r}</span></div>)}
+        <div class="stat reveal"><span class="mono muted">Package</span><span class="n txt">{c.pkg}</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="The business and the site">
+    <div class="wrap-wide">
+      <div class="split" style="gap:12px;align-items:stretch">
+        <div class="reveal scale-in fill r-4-3"><Video name={c.video} class="media-lg" alt={`${c.client} at work.`} eager /></div>
+        <div class="reveal scale-in bg-ash" style="border-radius:var(--r-lg);display:grid;place-items:center;padding:40px 24px;min-height:420px">
+          <div class="phone" style="position:relative;width:min(240px,60%);right:auto;bottom:auto">
+            <div class="screen">
+              <div class="demo">
+                <div class="demo-nav"><span>{c.client.split(' ')[0]}</span><i></i></div>
+                <div class="demo-hero">
+                  <Video name={s.card} alt="" />
+                  <div class="demo-h" style="z-index:2">{s.demoHeadline}</div>
+                </div>
+                <div class="demo-rows"><i></i><i></i></div>
+                <div class="demo-call">{s.demoCta}</div>
+              </div>
+            </div>
+          </div>
+          <p class="mono muted mt-24">The finished site on a phone</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ba-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Before and after</p>
+          <Headline id="ba-h" lines={['From dated', 'to done.']} />
+        </div>
+        <p class="body-l muted reveal">{c.summary}</p>
+      </div>
+      <div class="ba">
+        <figure class="reveal">
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span>{c.oldUrl}</span></div>
+            <div class="browser-body">
+              <div class="old-site" aria-hidden="true">
+                <div class="o-head"><span>{c.client.toUpperCase()}</span><span class="o-nav"><i></i><i></i><i></i><i></i></span></div>
+                <div class="o-body"><div class="o-img"></div><div class="o-txt"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+                <div class="o-foot">© 2014 · Best viewed in Internet Explorer</div>
+              </div>
+            </div>
+          </div>
+          <figcaption class="mono muted">Before</figcaption>
+        </figure>
+        <figure class="reveal" style="--d:120ms">
+          <div class="browser">
+            <div class="browser-bar"><i></i><i></i><i></i><span>{c.oldUrl}</span></div>
+            <div class="browser-body">
+              <div class="demo" aria-hidden="true" style="font-size:clamp(9px,1.2vw,14px)">
+                <div class="demo-nav"><span>{c.client}</span><i></i></div>
+                <div class="demo-hero"><img src={`/video/${s.video}.webp`} alt="" loading="lazy" width="1280" height="720" /><div class="demo-h">{s.demoHeadline}<br /><span class="demo-cta">{s.demoCta}</span></div></div>
+                <div class="demo-rows"><i></i><i></i><i></i></div>
+              </div>
+            </div>
+          </div>
+          <figcaption class="mono muted">After · Hitch Studio</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-black" aria-label="Client quote">
+    <div class="wrap">
+      <figure class="stack-32" style="max-width:980px">
+        <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>In their words</p>
+        <blockquote class="reveal"><p class="display-m" style="font-weight:500">“{c.quote}”</p></blockquote>
+        <figcaption class="reveal"><span class="h4">{c.quoteBy}.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="built-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>What we built</p>
+          <h2 id="built-h" class="display-m reveal">{c.pkg} package.</h2>
+        </div>
+        <div>
+          <ul class="checklist">
+            <li>{c.pkg} package, from the {s.label.toLowerCase()} kit.</li>
+            {c.tools.map((t) => <li>{t}.</li>)}
+            <li>Google Business Profile set up and linked.</li>
+            <li>Care plan from launch day.</li>
+          </ul>
+          <div class="row-wrap mt-32">
+            <a class="btn" href="/book" data-track="cta_book">Start yours <Arrow /></a>
+            <a class="link" href={s.path}>More on {s.label.toLowerCase()} sites <Arrow /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ash" aria-labelledby="more-h">
+    <div class="wrap">
+      <div class="sec-head"><h2 id="more-h" class="display-m reveal">More work.</h2></div>
+      <div class="case-grid">{others.map((o) => <CaseCard c={o} />)}</div>
+    </div>
+  </section>
+</Base>
