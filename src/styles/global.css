@@ -327,7 +327,7 @@ table { border-collapse: collapse; width: 100%; }
 .scene-ctas { display: flex; flex-wrap: wrap; gap: 10px; }
 .scene-pause { position: absolute; z-index: 3; right: 16px; bottom: 16px; background: rgba(10,10,10,0.35); backdrop-filter: blur(6px); }
 @media (min-width: 768px) { .scene-pause { right: 24px; bottom: 24px; } }
-.hero-scene .hl { color: var(--black); }
+.hero-scene .hl { color: var(--white); }
 .pause-btn {
   display: inline-flex; align-items: center; gap: 10px; color: var(--white);
   font-family: var(--font-mono); font-size: var(--mono); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
