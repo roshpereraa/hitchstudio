@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Hero film: 1080p cut from Mixkit 1080p originals (download https://assets.mixkit.co/videos/<id>/<id>-1080.mp4 into <raw-dir>).
-# Usage: scripts/encode-hero.sh <raw-dir> public/video 1920 1080 23 hero
-#        scripts/encode-hero.sh <raw-dir> public/video 1080 1920 25 hero-mobile
+# Usage: scripts/encode-hero.sh <raw-dir> public/video 1920 1080 23 hero-v2
+#        scripts/encode-hero.sh <raw-dir> public/video 1080 1920 25 hero-v2-mobile
 # Beats: builder on the phone, dentist, website on a tablet, screen in glasses (AI), dashboard, phone ringing.
 set -euo pipefail
 RAW=$1; OUT=$2; W=$3; H=$4; CRF=$5; NAME=$6
