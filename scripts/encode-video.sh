@@ -29,7 +29,7 @@ seq() {
   printf "%-22s mp4 %6s KB  webm %6s KB  poster %4s KB\n" $name $(( $(stat -c%s "$OUT/$name.mp4")/1024 )) $(( $(stat -c%s "$OUT/$name.webm")/1024 )) $(( $(stat -c%s "$OUT/$name.webp")/1024 ))
 }
 
-# Hero: 16:9 desktop and 9:16 mobile cut, four slow beats.
+# Hero: now built by scripts/encode-hero.sh (1080p). Old 720p cut kept for reference.
 CRF=26 seq hero        1280 720 "" 3.1 1445:2 4766:3 12878:1.5 247:4
 CRF=27 seq hero-mobile 540 960 "" 3.1 1445:2 4766:3 12878:1.5 247:4
 # Sector loops.
