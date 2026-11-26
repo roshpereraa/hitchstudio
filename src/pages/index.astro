@@ -16,26 +16,26 @@ import AgentSchematic from '../components/AgentSchematic.astro';
   preloadPoster="/video/hero-v2.webp"
 >
   <!-- Hero: one framed scene. Video fills the frame, copy sits on it, bottom left. -->
-  <section class="hero" aria-labelledby="hero-h">
+  <section class="hero-scene" aria-labelledby="hero-h">
     <div class="wrap-wide">
-      <div class="hero-frame on-black scale-in">
-        <div id="hero-video" class="hero-media">
+      <div class="scene-frame on-black scale-in">
+        <div id="hero-video" class="scene-media">
           <Video name="hero-v2" mobile="hero-v2-mobile" alt="A builder on the phone on site, a dentist with a patient, a website on a tablet, a screen reflected in glasses, a dashboard, a phone ringing." eager hero />
         </div>
-        <div class="hero-shade" aria-hidden="true"></div>
-        <div class="hero-content">
+        <div class="scene-shade" aria-hidden="true"></div>
+        <div class="scene-content">
           <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>Websites and AI</p>
-          <h1 id="hero-h" class="hero-title lines" data-reveal>
+          <h1 id="hero-h" class="scene-title lines" data-reveal>
             <span class="line"><span>Websites that win the work.</span></span>
             <span class="line"><span style="--d:90ms">AI that does <span class="hl">it.</span></span></span>
           </h1>
-          <p class="hero-lede reveal" style="--d:220ms">Sharp, fast websites for trades, clinics and property businesses, live in days. And AI agents built into the business you already run.</p>
-          <div class="hero-ctas reveal" style="--d:300ms">
+          <p class="scene-lede reveal" style="--d:220ms">Sharp, fast websites for trades, clinics and property businesses, live in days. And AI agents built into the business you already run.</p>
+          <div class="scene-ctas reveal" style="--d:300ms">
             <a class="btn btn-lg btn-white" href="/book" data-track="cta_book">Book a call <Arrow /></a>
             <a class="btn btn-lg btn-ghost-light" href="/ai">AI for your business</a>
           </div>
         </div>
-        <button class="pause-btn hero-pause" type="button" aria-controls="hero-video" aria-pressed="false" data-pause>
+        <button class="pause-btn scene-pause" type="button" aria-controls="hero-video" aria-pressed="false" data-pause>
           <svg class="i-pause" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><rect x="1" y="0" width="3" height="10"/><rect x="6" y="0" width="3" height="10"/></svg>
           <svg class="i-play" viewBox="0 0 10 10" fill="currentColor" aria-hidden="true"><path d="M1 0l9 5-9 5z"/></svg>
           <span data-label>Pause</span><span class="sr-only"> background video</span>
