@@ -7,11 +7,12 @@ import CaseCard from '../components/CaseCard.astro';
 import PackageCards from '../components/PackageCards.astro';
 import ProcessSchematic from '../components/ProcessSchematic.astro';
 import DoorSchematic from '../components/DoorSchematic.astro';
-import { sectors, cases, included, process } from '../data/site';
+import { sectors, cases, included, process, aiUseCases } from '../data/site';
+import AgentSchematic from '../components/AgentSchematic.astro';
 ---
 <Base
-  title="Hitch Studio | Websites for businesses with a front door"
-  description="Fixed-price websites for trades, clinics and property businesses in Australia, the UK and the US. Written, designed and live in days. Book a 20-minute call."
+  title="Hitch Studio | Websites and AI for the business you already run"
+  description="Fixed-price websites for trades, clinics and property businesses, and agentic AI built into existing companies. Australia, the UK and the US. Book a 20-minute call."
   preloadPoster="/video/hero.webp"
 >
   <!-- Hero -->
@@ -24,11 +25,11 @@ import { sectors, cases, included, process } from '../data/site';
           <span class="line"><span style="--d:180ms">Online <span class="hl">too.</span></span></span>
         </h1>
         <div class="hero-aside reveal" style="--d:300ms">
-          <p class="mono muted">Websites for businesses with a front door</p>
-          <p class="body-l">Sharp, fast websites for trades, clinics and property businesses. Written, designed and live in days.</p>
+          <p class="mono muted">Websites and AI</p>
+          <p class="body-l">Sharp, fast websites for trades, clinics and property businesses, live in days. And AI agents built into the business you already run.</p>
           <div class="hero-ctas">
             <a class="btn btn-lg" href="/book" data-track="cta_book">Book a call <Arrow /></a>
-            <a class="btn btn-lg btn-secondary" href="/work">See the work</a>
+            <a class="btn btn-lg btn-secondary" href="/ai">AI for your business</a>
           </div>
         </div>
       </div>
@@ -53,7 +54,7 @@ import { sectors, cases, included, process } from '../data/site';
   <!-- Proof strip -->
   <section class="proof" aria-label="Why Hitch Studio">
     <div class="wrap-wide">
-      <p class="proof-line mono-m"><span>Live in days</span><span class="sep" aria-hidden="true"></span><span>Fixed prices</span><span class="sep" aria-hidden="true"></span><span>You own it</span></p>
+      <p class="proof-line mono-m"><span>Websites</span><span class="sep" aria-hidden="true"></span><span>AI agents</span><span class="sep" aria-hidden="true"></span><span>Fixed prices</span><span class="sep" aria-hidden="true"></span><span>You own it</span></p>
       <div class="logos" aria-label="Rope Digital clients">
         <span>Flexia Construction</span>
         <span class="l-wide">4S GROUP</span>
@@ -63,12 +64,39 @@ import { sectors, cases, included, process } from '../data/site';
     </div>
   </section>
 
-  <!-- Sectors -->
-  <section id="sectors" class="section rule-top" aria-labelledby="sectors-h">
+  <!-- Two services -->
+  <section class="section rule-top" aria-labelledby="services-h">
     <div class="wrap">
       <div class="sec-head">
         <div class="stack-16">
-          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Sectors</p>
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>What we do</p>
+          <Headline id="services-h" lines={['Two things.', 'Done properly.']} />
+        </div>
+        <p class="body-l muted reveal">The website that brings the work in. The AI that helps get it done. Take one, or both.</p>
+      </div>
+      <div class="services">
+        <a class="service reveal" href="#sectors">
+          <p class="mono muted">01 · Websites</p>
+          <h3 class="display-m">Your front door, online.</h3>
+          <p class="muted">Fixed-price sites for trades, clinics and property businesses. Written, designed and live in 2–4 working days, from US$1,500.</p>
+          <span class="link">Websites <Arrow /></span>
+        </a>
+        <a class="service reveal" style="--d:90ms" href="/ai">
+          <p class="mono muted">02 · AI implementation</p>
+          <h3 class="display-m">AI that does the work.</h3>
+          <p class="muted">Agents built into your existing tools: {aiUseCases.slice(0, 3).map((u) => u.title.toLowerCase()).join(', ')}. Piloted on one workflow, with a person in control.</p>
+          <span class="link">AI implementation <Arrow /></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sectors -->
+  <section id="sectors" class="section bg-ash" aria-labelledby="sectors-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Websites</p>
           <Headline id="sectors-h" lines={['Built for the', 'businesses you visit.']} />
         </div>
         <p class="body-l muted reveal">Three sectors, three design kits, one process. Any business with a front door is welcome.</p>
@@ -89,7 +117,7 @@ import { sectors, cases, included, process } from '../data/site';
   </section>
 
   <!-- Work -->
-  <section class="section bg-ash" aria-labelledby="work-h">
+  <section class="section" aria-labelledby="work-h">
     <div class="wrap">
       <div class="sec-head">
         <div class="stack-16">
@@ -105,7 +133,7 @@ import { sectors, cases, included, process } from '../data/site';
   </section>
 
   <!-- What you get -->
-  <section class="section" aria-labelledby="get-h">
+  <section class="section bg-ash" aria-labelledby="get-h">
     <div class="wrap">
       <div class="split wide-right">
         <div class="stack-32">
@@ -129,7 +157,7 @@ import { sectors, cases, included, process } from '../data/site';
   </section>
 
   <!-- How it works -->
-  <section class="section bg-ash" aria-labelledby="how-h">
+  <section class="section" aria-labelledby="how-h">
     <div class="wrap">
       <div class="sec-head">
         <div class="stack-16">
@@ -151,12 +179,37 @@ import { sectors, cases, included, process } from '../data/site';
     </div>
   </section>
 
+  <!-- AI -->
+  <section class="section on-black" aria-labelledby="ai-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-32">
+          <div class="stack-16">
+            <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>AI implementation</p>
+            <Headline id="ai-h" lines={['AI, built into', 'the business', 'you already run.']} />
+          </div>
+          <div class="reveal" style="max-width:480px"><AgentSchematic /></div>
+          <a class="btn btn-lime reveal" style="align-self:flex-start" href="/ai">How it works <Arrow /></a>
+        </div>
+        <ol class="ruled">
+          {aiUseCases.map((u, i) => (
+            <li class="reveal" style={`--d:${i * 60}ms`}>
+              <span class="idx mono">0{i + 1}</span>
+              <h3 class="h4">{u.title}.</h3>
+              <p class="muted">{u.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
   <!-- Pricing teaser -->
-  <section class="section" aria-labelledby="pkg-h">
+  <section class="section bg-ash" aria-labelledby="pkg-h">
     <div class="wrap">
       <div class="sec-head">
         <div class="stack-16">
-          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Packages</p>
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Website packages</p>
           <Headline id="pkg-h" lines={['One fair price,', 'agreed up front.']} />
         </div>
         <p class="body-l muted reveal">Three websites. No hourly billing, no surprise invoices. Every build includes 12 months of care.</p>

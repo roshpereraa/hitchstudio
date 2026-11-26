@@ -1,6 +1,6 @@
 # hitch.build — Hitch Studio website
 
-Astro static site, deployed on Vercel. Content lives in `src/data/site.ts` (pricing from the business plan, sectors, case studies, FAQs).
+Astro static site, deployed on Vercel. Hitch does two things: websites, and AI implementation (agents embedded into existing businesses, `/ai`). Content lives in `src/data/site.ts` (pricing, sectors, case studies, FAQs, and the AI stages, use cases and FAQs). AI stage prices are `null` until set; the site shows "Quoted after the audit" meanwhile.
 
 - `npm run dev` / `npm run build`
 - `api/lead.js` — lead intake. Set `LEAD_WEBHOOK_URL` (CRM), `SLACK_WEBHOOK_URL`, and `RESEND_API_KEY` + `LEAD_ALERT_EMAIL` for alerts.

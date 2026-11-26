@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Arrow from '../components/Arrow.astro';
 import Headline from '../components/Headline.astro';
 import Faq from '../components/Faq.astro';
-import { packages, everyPackage, care, tools, toolChecklist, addons, pricingFaqs, site } from '../data/site';
+import { packages, everyPackage, care, tools, toolChecklist, addons, pricingFaqs, site, aiStages } from '../data/site';
 const usd = (n: number) => `US$${n.toLocaleString('en-US')}`;
 const rows: { label: string; key: 'pages' | 'for' | 'copy' | 'form' | 'booking' | 'gbp' | 'seo' | 'delivery' | 'revisions' }[] = [
   { label: 'Pages', key: 'pages' },
@@ -31,7 +31,7 @@ const schema = [
   })),
 ];
 ---
-<Base title="Pricing | Hitch Studio" description="Fixed website prices in USD for Australia, the UK and the US. Essential US$1,500, Growth US$2,500, Pro US$3,900, plus care plans, custom tools and add-ons." schema={schema}>
+<Base title="Pricing | Hitch Studio" description="Fixed prices in USD for Australia, the UK and the US. Websites from US$1,500, care plans, custom tools, and AI implementation in four fixed-price stages." schema={schema}>
   <section class="page-hero" aria-labelledby="pricing-h">
     <div class="wrap">
       <div class="sec-head" style="margin-bottom:0">
@@ -40,7 +40,7 @@ const schema = [
           <Headline tag="h1" id="pricing-h" class="display-xl" lines={['One fair', 'price.']} />
         </div>
         <div class="stack-16 reveal">
-          <p class="body-l muted">Three websites, two care plans, three tool sizes and a short list of add-ons. Nothing is quoted outside it.</p>
+          <p class="body-l muted">Three websites, two care plans, three tool sizes, a short list of add-ons, and AI in four fixed-price stages.</p>
           <p class="mono">All prices in USD, for every market.</p>
         </div>
       </div>
@@ -153,6 +153,31 @@ const schema = [
           </table>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section on-black" aria-labelledby="ai-pricing-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>AI implementation</p>
+          <Headline id="ai-pricing-h" lines={['AI, priced', 'stage by stage.']} />
+        </div>
+        <p class="body-l reveal" style="color:#dcdcdc">Each stage has a fixed price, agreed before it starts. Stop after any stage and keep everything we built. <a class="link" href="/ai">How it works <Arrow /></a></p>
+      </div>
+      <div class="table-wrap reveal">
+        <table class="compare">
+          <caption class="sr-only">AI implementation stages</caption>
+          <thead><tr><td></td>{aiStages.map((s) => <th scope="col">{s.name}</th>)}</tr></thead>
+          <tbody>
+            <tr><th scope="row">Price</th>{aiStages.map((s) => <td class:list={['price-cell', !s.price && 'tbd']}>{s.price ? usd(s.price) : 'Quoted after the audit'}</td>)}</tr>
+            <tr><th scope="row">Pricing</th>{aiStages.map((s) => <td>{s.priceNote}</td>)}</tr>
+            <tr><th scope="row">Takes</th>{aiStages.map((s) => <td>{s.time}</td>)}</tr>
+            <tr><th scope="row">What you get</th>{aiStages.map((s) => <td>{s.short}</td>)}</tr>
+          </tbody>
+        </table>
+      </div>
+      <a class="btn btn-lime mt-48 reveal" href="/book?service=ai" data-track="cta_book">Book an AI call <Arrow /></a>
     </div>
   </section>
 

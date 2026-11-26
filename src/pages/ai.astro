@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import Headline from '../components/Headline.astro';
+import Faq from '../components/Faq.astro';
+import Video from '../components/Video.astro';
+import AgentSchematic from '../components/AgentSchematic.astro';
+import { aiStages, aiUseCases, aiPrinciples, aiFaqs, site } from '../data/site';
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: aiFaqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'AI implementation',
+    serviceType: 'AI agents and workflow automation for existing businesses',
+    provider: { '@id': `${site.url}/#business` },
+    areaServed: ['Australia', 'United Kingdom', 'United States'],
+  },
+];
+---
+<Base
+  title="AI implementation for existing businesses | Hitch Studio"
+  description="Agentic AI built into the business you already run. We find the work AI should do, pilot one agent on one workflow, then embed it into your systems with a person in control."
+  schema={schema}
+  bookingHeadline="Put AI to work. Start with an audit."
+>
+  <section class="page-hero" aria-labelledby="ai-h">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:0">
+        <div class="stack-24">
+          <p class="eyebrow mono reveal"><span class="tick" aria-hidden="true"></span>AI implementation</p>
+          <Headline tag="h1" id="ai-h" class="display-xl" lines={['AI that does', 'the work.']} hl="work." />
+        </div>
+        <div class="stack-24 reveal">
+          <p class="body-l muted">Agentic AI, built into the business you already run. Agents that answer enquiries, clear the inbox, draft the quote and update the CRM, inside your tools and with a person in control.</p>
+          <div class="row-wrap"><a class="btn" href="/book?service=ai" data-track="cta_book">Book a call <Arrow /></a><a class="link" href="#stages-h">How we work <Arrow /></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="use-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-32">
+          <div class="stack-16">
+            <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>What it does</p>
+            <Headline id="use-h" lines={['The jobs nobody', 'hired you to do.']} />
+          </div>
+          <div class="reveal" style="max-width:480px"><AgentSchematic /></div>
+        </div>
+        <ol class="ruled">
+          {aiUseCases.map((u, i) => (
+            <li class="reveal" style={`--d:${i * 60}ms`}>
+              <span class="idx mono">0{i + 1}</span>
+              <h3 class="h4">{u.title}.</h3>
+              <p class="muted">{u.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ash" aria-labelledby="stages-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>How we work</p>
+          <Headline id="stages-h" lines={['Prove it small.', 'Then embed it.']} />
+        </div>
+        <p class="body-l muted reveal">Four stages, each with a fixed price. You only move to the next one when the last one has paid for itself.</p>
+      </div>
+      <ol class="steps">
+        {aiStages.map((s, i) => (
+          <li class="step reveal" style={`--d:${i * 90}ms`}>
+            <p class="num mono"><span>0{i + 1}</span><span>{s.time}</span></p>
+            <h3 class="h3">{s.name}.</h3>
+            <p class="muted">{s.short}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="ai-stages mt-64">
+        {aiStages.map((s, i) => (
+          <div class="ai-stage split reveal">
+            <p class="mono muted">0{i + 1} · {s.name} · {s.time}</p>
+            <div class="stack-16">
+              <p class="body-l">{s.body}</p>
+              <p class="you small"><span class="mono">What you do</span><br />{s.you}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-black" aria-labelledby="rules-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>How we build it</p>
+          <Headline id="rules-h" lines={['In control,', 'by design.']} />
+        </div>
+        <ol class="ruled">
+          {aiPrinciples.map((p, i) => (
+            <li class="reveal" style="grid-template-columns:80px 1fr">
+              <span class="idx mono">0{i + 1}</span>
+              <p class="body-l">{p}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section aria-label="Footage">
+    <div class="wrap-wide"><div class="reveal scale-in fill r-21-9"><Video name="work-phone" class="media-lg" alt="A phone in hand at a small business counter." /></div></div>
+  </section>
+
+  <section class="section" aria-labelledby="web-ai-h">
+    <div class="wrap">
+      <div class="split">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>Websites and AI</p>
+          <Headline id="web-ai-h" lines={['Better together.', 'Fine apart.']} />
+        </div>
+        <div class="stack-24 reveal">
+          <p class="body-l muted">You don’t need a Hitch website to work with us on AI. But if we build your site, the enquiry agent plugs straight into it: it answers from your own pages, books the call and hands the lead to your CRM.</p>
+          <div class="row-wrap"><a class="link" href="/pricing#ai-pricing-h">AI pricing <Arrow /></a><a class="link" href="/#sectors">Websites <Arrow /></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-ash" aria-labelledby="aifaq-h">
+    <div class="wrap">
+      <div class="split wide-right">
+        <div class="stack-16">
+          <p class="eyebrow mono"><span class="tick" aria-hidden="true"></span>AI questions</p>
+          <Headline id="aifaq-h" lines={['Straight answers.']} />
+        </div>
+        <Faq items={aiFaqs} />
+      </div>
+    </div>
+  </section>
+</Base>

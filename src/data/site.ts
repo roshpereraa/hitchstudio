@@ -1,6 +1,7 @@
 // Single source of truth for Hitch Studio site content.
 // Pricing comes from the Hitch Studio Business Plan, "Offer and pricing" section.
 // Prices are shown on /pricing only.
+// Hitch does two things: websites, and AI implemented inside existing businesses.
 
 export const site = {
   name: 'Hitch Studio',
@@ -10,7 +11,7 @@ export const site = {
   // Set these and the header and footer will show click-to-call links.
   phone: null as string | null,
   whatsapp: null as string | null,
-  positioning: 'Websites for businesses with a front door.',
+  positioning: 'Websites and AI, built into the business you already run.',
   signoff: 'Built without a hitch.',
   endorsement: 'A Rope Digital studio.',
   ropeUrl: 'https://ropedigital.co',
@@ -20,10 +21,10 @@ export const site = {
 
 export const nav = [
   { href: '/work', label: 'Work' },
-  { href: '/#sectors', label: 'Sectors', match: ['/trades', '/clinics', '/property'] },
-  { href: '/pricing', label: 'Pricing' },
+  { href: '/#sectors', label: 'Websites', match: ['/trades', '/clinics', '/property', '/tools', '/how-it-works'] },
+  { href: '/ai', label: 'AI' },
   { href: '/tools', label: 'Tools' },
-  { href: '/how-it-works', label: 'How it works' },
+  { href: '/pricing', label: 'Pricing' },
 ];
 
 export type SectorKey = 'trades' | 'clinics' | 'property';
@@ -149,16 +150,13 @@ export const tools = [
 export const addons = [
   { name: 'Extra language', detail: 'Translated by a professional, checked by you.', price: '25% of the package price, per language' },
   { name: 'Extra page', detail: "Up to the package's 20-page ceiling.", price: 'US$150' },
-  { name: 'Logo refresh', detail: 'From your existing logo.', price: 'US$400' },
-  { name: 'Half-day photo shoot, anywhere', detail: 'Partner photographer. Travel outside a metro area billed at cost. Can include video.', price: 'US$900' },
-  { name: 'Small shop', detail: 'Up to 20 products.', price: 'US$1,000' },
-  { name: 'Email signatures and mailbox setup', detail: 'Branded signatures for the team.', price: 'US$200' },
+  { name: 'AI enquiry assistant', detail: 'An agent on your site that answers questions from your own content and books or routes the enquiry. Scoped as an AI Pilot.', price: 'See AI pricing' },
 ];
 
 export const included = [
   { title: 'Design', body: 'A design from Rope’s design team and your sector kit. Not a public template.' },
   { title: 'Copy', body: 'We write every word from one recorded call. You check them.' },
-  { title: 'Photos', body: 'We source and grade the images. A half-day shoot is an add-on.' },
+  { title: 'Photos', body: 'We source and grade the images from your phone, your socials and our library.' },
   { title: 'Google Business Profile', body: 'Set up, verified and linked, so you show up on Maps.' },
   { title: 'Hosting', body: 'Fast global hosting, SSL, backups and uptime monitoring.' },
   { title: 'Care', body: 'A named contact, monthly edits and a fixed response time.' },
@@ -367,7 +365,7 @@ export const sectors: Sector[] = [
     ],
     faqs: [
       { q: 'How fast can my site be live?', a: 'Two to four working days after our content call, depending on the package. Most trades sites go live in three.' },
-      { q: 'I don’t have good photos of my work. Is that a problem?', a: 'No. We source and grade images from your phone, your socials and our library. A half-day photo shoot is available as an add-on.' },
+      { q: 'I don’t have good photos of my work. Is that a problem?', a: 'No. We source and grade images from your phone, your socials and our library.' },
       { q: 'Can people request a quote with photos of the job?', a: 'Yes. Every package includes an enquiry or quote form. A multi-step quote builder that emails a PDF quote is available as a custom tool.' },
       { q: 'Will it help me show up on Google Maps?', a: 'Yes. We set up and verify your Google Business Profile, link it to your site and build local SEO foundations into every page.' },
       { q: 'Do I own the website?', a: 'Yes. If you ever leave care after the first 12 months, you get a full export of your site. We never hold a site hostage.' },
@@ -454,7 +452,7 @@ export const sectors: Sector[] = [
       { q: 'Can maintenance requests go to the right manager?', a: 'Yes. Pro includes routing by service. A full job-request flow with an admin view is available as a Tool L.' },
       { q: 'We manage buildings in several areas. Can we rank in each?', a: 'Yes. Pro includes location pages and up to three Google Business Profile locations.' },
       { q: 'How long does it take?', a: 'Two to four working days after the content call. Most property sites go live in three or four.' },
-      { q: 'Can you list our properties for sale or rent?', a: 'We link to your listings on the major portals. A small shop of up to 20 items is an add-on, but large listing feeds go to Rope Digital.' },
+      { q: 'Can you list our properties for sale or rent?', a: 'We link to your listings on the major portals. Large listing feeds go to Rope Digital.' },
     ],
   },
 ];
@@ -464,8 +462,8 @@ export const pricingFaqs = [
   { q: 'Why are prices in USD?', a: 'One price list for Australia, the UK and the US keeps things fair and simple. Your bank converts at the day’s rate. All prices on this site are in US dollars.' },
   { q: 'Is care required?', a: 'Yes, for the first 12 months. It covers hosting, security, backups and edits. After 12 months, care rolls monthly with 30 days’ notice.' },
   { q: 'What happens if I leave care?', a: 'You get a full export of your site. We never hold a site hostage.' },
-  { q: 'What isn’t included?', a: 'Paid ads, ongoing SEO campaigns, social media management, logins and client portals, and shops over 20 products. Custom tools and add-ons are priced separately.' },
-  { q: 'What goes to Rope Digital?', a: 'Sites over 20 pages, shops over 20 products, web apps, client portals and logins, and tools larger than Tool L. Rope Digital is our parent studio and quotes those separately.' },
+  { q: 'What isn’t included?', a: 'Hitch does websites and AI, nothing else. So no paid ads, ongoing SEO campaigns, social media, branding, photo shoots or online shops. Custom tools and AI work are priced separately.' },
+  { q: 'What goes to Rope Digital?', a: 'Sites over 20 pages, online shops, web apps, client portals and logins, and tools larger than Tool L. Rope Digital is our parent studio and quotes those separately.' },
   { q: 'Do you offer discounts?', a: 'No. Everyone pays the same fair price. If budget is tight, we’ll recommend a smaller package or a staged add-on.' },
   { q: 'Can I upgrade later?', a: 'Yes. An Essential client can move to Growth within 6 months and pay only the difference.' },
   { q: 'Do prices include GST or VAT?', a: 'Prices are shown before any local sales tax. Your quote shows exactly what applies in your market.' },
@@ -478,3 +476,81 @@ export const toolChecklist = [
 ];
 
 export const sectorByKey = Object.fromEntries(sectors.map((s) => [s.key, s])) as Record<SectorKey, Sector>;
+
+// ---------------------------------------------------------------------------
+// AI implementation: embedding AI agents and automation into existing businesses.
+// OPEN DECISION: set prices. Each stage shows "Quoted after the audit" until a
+// number is set here (USD, same as the website menu).
+// ---------------------------------------------------------------------------
+
+export const aiStages = [
+  {
+    key: 'audit',
+    name: 'Audit',
+    time: '1–2 weeks',
+    price: null as number | null,
+    priceNote: 'Fixed price, credited to the pilot',
+    short: 'We find the jobs AI should be doing in your business.',
+    body: 'We sit with your team, map how work really moves, and look at your systems, inbox and data. You get a ranked list of workflows to automate, with the hours each one saves, the risk and a fixed price for the first pilot.',
+    you: 'Two or three short sessions with the people who do the work. Read-only access to the tools involved.',
+  },
+  {
+    key: 'pilot',
+    name: 'Pilot',
+    time: '2–4 weeks',
+    price: null as number | null,
+    priceNote: 'Fixed price, agreed at the audit',
+    short: 'One agent, one workflow, live with real work.',
+    body: 'We build one AI agent for the top workflow, connect it to your real systems and run it alongside your team with a person approving every action. We measure it against the baseline from the audit.',
+    you: 'One owner on your side who reviews the agent’s work for a few minutes a day.',
+  },
+  {
+    key: 'embed',
+    name: 'Embed',
+    time: '4–8 weeks',
+    price: null as number | null,
+    priceNote: 'Fixed price per workflow',
+    short: 'Roll it out, connect it up, train the team.',
+    body: 'Once the pilot proves itself, we widen it: more workflows, more systems, approval rules that match your risk, and training so your team knows how to work with it, correct it and switch it off.',
+    you: 'A training session per team. Sign-off on what the agent can do without asking.',
+  },
+  {
+    key: 'run',
+    name: 'Run',
+    time: 'Monthly',
+    price: null as number | null,
+    priceNote: 'Monthly, per agent',
+    short: 'We watch it, test it and keep improving it.',
+    body: 'Monitoring, monthly accuracy tests against real cases, model and prompt updates, new integrations as your tools change, and a monthly report on hours saved and errors caught.',
+    you: 'Flag anything odd. We handle the rest.',
+  },
+];
+
+export const aiUseCases = [
+  { title: 'Enquiries and leads', body: 'An agent that answers website, email and phone enquiries from your own content, qualifies them and books the call or routes the job.' },
+  { title: 'Inbox and admin', body: 'Reads incoming email and documents, sorts them, drafts replies and files the details into the right system.' },
+  { title: 'Quotes and paperwork', body: 'Turns a call, a form or a site photo into a draft quote, report or proposal for a person to check and send.' },
+  { title: 'Internal knowledge', body: 'An assistant trained on your procedures, policies and past jobs, so new staff stop asking the same five questions.' },
+  { title: 'Data entry and handoffs', body: 'Moves information between your CRM, accounting, practice or job software, so nobody retypes it.' },
+  { title: 'Reporting', body: 'Pulls numbers from your systems into a plain-English weekly summary, with the exceptions flagged.' },
+];
+
+export const aiPrinciples = [
+  'We start with the work, not the tech. If a workflow doesn’t need AI, we tell you.',
+  'A person approves every action until the numbers say otherwise, and you decide when that is.',
+  'Built into the tools you already pay for. No new platform for your team to learn.',
+  'Your data stays in your accounts. We use providers that don’t train on it, and log every action the agent takes.',
+  'Every agent has an off switch, a named owner and a monthly accuracy test.',
+  'You own the prompts, workflows and integrations we build. Leave, and you take them with you.',
+];
+
+export const aiFaqs = [
+  { q: 'What does “agentic AI” actually mean?', a: 'An AI that does a job, not just answers a question. It reads the email, checks the CRM, drafts the reply and books the call, inside rules you set and with a person approving what matters.' },
+  { q: 'Do we need a Hitch website to use this?', a: 'No. AI implementation is a separate service for existing businesses, whatever your website. If we built your site, the enquiry agent plugs straight into it.' },
+  { q: 'Which systems can you connect to?', a: 'Most tools with an API or a solid integration: Google Workspace and Microsoft 365, HubSpot, Salesforce and most CRMs, Xero and QuickBooks, Slack and Teams, practice software such as Cliniko, and job tools such as ServiceM8, Tradify and simPRO. We confirm every integration at the audit.' },
+  { q: 'Which AI models do you use?', a: 'Whichever suits the job, from the major providers, on business terms that don’t train on your data. We can switch models later without rebuilding the workflow.' },
+  { q: 'What about privacy and compliance?', a: 'Data stays in your accounts where possible, access is limited to what the agent needs, and every action is logged. For clinics and other regulated work we design around your market’s rules, and keep clinical decisions with clinicians.' },
+  { q: 'What if the AI gets something wrong?', a: 'That’s why a person approves actions during the pilot, and why we test accuracy every month. Mistakes get caught, logged and used to tighten the rules.' },
+  { q: 'Will this replace our staff?', a: 'It replaces the retyping, chasing and sorting. Most clients use the hours to answer customers faster and take on more work with the team they have.' },
+  { q: 'How do we start?', a: 'Book a call. If there’s a fit, we start with the audit, which gives you a fixed price for the pilot before you commit to anything more.' },
+];

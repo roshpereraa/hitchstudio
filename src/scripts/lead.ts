@@ -63,6 +63,10 @@ document.querySelectorAll<HTMLFormElement>('[data-lead-form]').forEach((form) =>
   const pkg = new URLSearchParams(location.search).get('package');
   const pkgInput = form.querySelector<HTMLInputElement>('input[name=package]');
   if (pkg && pkgInput) pkgInput.value = pkg;
+  if (new URLSearchParams(location.search).get('service') === 'ai') {
+    const ai = form.querySelector<HTMLInputElement>('input[data-need="AI for my business"]');
+    if (ai) ai.checked = true;
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();

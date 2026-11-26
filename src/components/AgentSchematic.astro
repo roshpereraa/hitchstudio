@@ -1,0 +1,48 @@
+---
+// AI: an agent drawn as a wiring diagram. Inputs on the left, your systems on the right,
+// with a person-approves gate between the agent and anything it changes.
+const ins = [
+  { label: 'Website', y: 70 },
+  { label: 'Email', y: 150 },
+  { label: 'Phone', y: 230 },
+  { label: 'Documents', y: 310 },
+];
+const outs = [
+  { label: 'CRM', y: 70 },
+  { label: 'Calendar', y: 150 },
+  { label: 'Accounts', y: 230 },
+  { label: 'Job software', y: 310 },
+];
+---
+<svg class="schematic" viewBox="0 0 560 400" role="img" aria-labelledby="agent-title">
+  <title id="agent-title">An AI agent wired between incoming work and your existing systems, with a person approving its actions.</title>
+  {ins.map((n, i) => (
+    <g style={`--d:${100 + i * 90}ms`}>
+      <text x="0" y={n.y + 4} class="fade">{n.label}</text>
+      <path class="draw faint" d={`M92 ${n.y}H124L196 ${180 + i * 14}`} />
+      <rect class="draw node-fill" x="89.5" y={n.y - 2.5} width="5" height="5" />
+    </g>
+  ))}
+  <rect class="draw" style="--d:450ms" x="196" y="150" width="112" height="100" />
+  <path class="draw faint" style="--d:550ms" d="M196 170h112M196 230h112" />
+  <text x="252" y="165" text-anchor="middle" class="fade" style="--d:800ms">Agent</text>
+  <text x="252" y="204" text-anchor="middle" class="fade" style="--d:850ms">Reads</text>
+  <text x="252" y="220" text-anchor="middle" class="fade" style="--d:900ms">Drafts</text>
+  <text x="252" y="245" text-anchor="middle" class="fade" style="--d:950ms">Your rules</text>
+  <path class="draw" style="--d:700ms" d="M308 200h36" />
+  <circle class="draw" style="--d:800ms" cx="362" cy="200" r="18" />
+  <rect class="lime fade" style="--d:1100ms" x="356" y="194" width="12" height="12" />
+  <text x="362" y="244" text-anchor="middle" class="fade" style="--d:1000ms">Person</text>
+  <text x="362" y="258" text-anchor="middle" class="fade" style="--d:1050ms">approves</text>
+  {outs.map((n, i) => (
+    <g style={`--d:${1100 + i * 90}ms`}>
+      <path class="draw faint" d={`M380 200L424 ${n.y}H448`} />
+      <rect class="draw node-fill" x="445.5" y={n.y - 2.5} width="5" height="5" />
+      <text x="458" y={n.y + 4} class="fade">{n.label}</text>
+    </g>
+  ))}
+  <g class="fade" style="--d:1500ms">
+    <path class="draw faint" d="M196 360h170M196 354v12M366 354v12" />
+    <text x="281" y="384" text-anchor="middle">Every action logged</text>
+  </g>
+</svg>

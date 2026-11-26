@@ -694,3 +694,18 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .stat .n.txt { font-size: clamp(1.125rem, 0.95rem + 0.8vw, 1.625rem); line-height: 1.15; }
 .hero h1.display-l { max-width: 15ch; }
 @media (max-width: 600px) { .schematic text { font-size: 13px; letter-spacing: 0.02em; } }
+
+/* AI stages (detail rows under the four-step strip) */
+.ai-stages { display: grid; }
+.ai-stage { gap: 24px; padding: 32px 0; border-top: 1px solid var(--line); }
+.ai-stage .you { padding: 14px 16px; background: var(--white); border-radius: var(--r); }
+
+/* Home: two services */
+.services { display: grid; gap: 16px; }
+@media (min-width: 768px) { .services { grid-template-columns: 1fr 1fr; } }
+.service { display: flex; flex-direction: column; gap: 16px; padding: clamp(24px, 3vw, 40px); border: 1px solid var(--line); border-radius: var(--r); text-decoration: none; color: inherit; transition: border-color var(--t) var(--ease), background var(--t) var(--ease); }
+.service:hover { border-color: var(--black); }
+.service .link { margin-top: auto; }
+.on-black .compare th, .on-black .compare td { border-bottom-color: var(--line-dark); }
+.on-black .compare tbody th { color: #bdbdbd; }
+.compare .price-cell.tbd { font-size: 1.25rem; letter-spacing: -0.02em; line-height: 1.2; }

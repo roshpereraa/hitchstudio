@@ -43,6 +43,7 @@ const org = {
       image: og,
       email: site.email,
       priceRange: 'US$1,500–US$3,900',
+      knowsAbout: ['Website design', 'AI implementation', 'AI agents', 'Workflow automation'],
       areaServed: [{ '@type': 'Country', name: 'Australia' }, { '@type': 'Country', name: 'United Kingdom' }, { '@type': 'Country', name: 'United States' }],
       parentOrganization: { '@id': `${site.url}/#org` },
     },
@@ -107,6 +108,7 @@ const org = {
   <div class="mobile-nav" id="mobile-nav" data-mobile-nav>
     <ul>
       {nav.map((item) => <li><a href={item.href}>{item.label}<Arrow /></a></li>)}
+      <li><a href="/how-it-works">How it works<Arrow /></a></li>
       <li><a href="/about">About<Arrow /></a></li>
     </ul>
     <div class="stack-16">
@@ -126,13 +128,17 @@ const org = {
       <div class="footer-top">
         <div class="stack-24">
           <a href="/"><Logo tone="lime" endorsed /></a>
-          <p class="muted measure">{site.positioning} Fixed prices in USD for Australia, the UK and the US.</p>
+          <p class="muted measure">{site.positioning} Websites and AI agents for Australia, the UK and the US.</p>
           <a class="link" href={`mailto:${site.email}`}>{site.email}</a>
         </div>
         <div class="footer-cols">
           <div>
-            <h2 class="mono">Sectors</h2>
-            <ul>{sectors.map((s) => <li><a href={s.path}>{s.label}</a></li>)}</ul>
+            <h2 class="mono">Services</h2>
+            <ul>
+              <li><a href="/#sectors">Websites</a></li>
+              {sectors.map((s) => <li><a href={s.path}>{s.label} websites</a></li>)}
+              <li><a href="/ai">AI implementation</a></li>
+            </ul>
           </div>
           <div>
             <h2 class="mono">Studio</h2>
